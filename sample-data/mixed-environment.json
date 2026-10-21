@@ -1,0 +1,202 @@
+{
+  "provider": "simulated",
+  "accountName": "Acme Global Hybrid Cloud",
+  "region": "ap-south-1",
+  "environment": "production",
+  "resources": [
+    {
+      "resourceId": "mix-store-001",
+      "type": "storage_bucket",
+      "name": "corporate-backups-bucket",
+      "environment": "production",
+      "criticality": "critical",
+      "configuration": {
+        "publicAccess": false,
+        "encryptionEnabled": true,
+        "versioningEnabled": true,
+        "tlsRequired": true
+      },
+      "tags": {
+        "owner": "backup-admin",
+        "environment": "production",
+        "dataClassification": "restricted"
+      }
+    },
+    {
+      "resourceId": "mix-store-002",
+      "type": "storage_bucket",
+      "name": "marketing-public-assets",
+      "environment": "production",
+      "criticality": "medium",
+      "configuration": {
+        "publicAccess": true,
+        "encryptionEnabled": true,
+        "versioningEnabled": false,
+        "tlsRequired": true
+      },
+      "tags": {
+        "owner": "marketing",
+        "environment": "production",
+        "dataClassification": "public"
+      }
+    },
+    {
+      "resourceId": "mix-db-003",
+      "type": "database",
+      "name": "internal-inventory-db",
+      "environment": "staging",
+      "criticality": "high",
+      "configuration": {
+        "publicAccess": false,
+        "encryptionEnabled": true,
+        "backupEnabled": true,
+        "backupRetentionDays": 7,
+        "inboundRules": [
+          { "protocol": "tcp", "port": 5432, "source": "10.100.0.0/16" }
+        ]
+      },
+      "tags": {
+        "owner": "warehouse-app",
+        "environment": "staging",
+        "dataClassification": "internal"
+      }
+    },
+    {
+      "resourceId": "mix-db-004",
+      "type": "database",
+      "name": "dev-analytics-replica",
+      "environment": "development",
+      "criticality": "medium",
+      "configuration": {
+        "publicAccess": true,
+        "encryptionEnabled": false,
+        "backupEnabled": false,
+        "backupRetentionDays": 0,
+        "inboundRules": [
+          { "protocol": "tcp", "port": 3306, "source": "0.0.0.0/0" }
+        ]
+      },
+      "tags": {
+        "environment": "development"
+      }
+    },
+    {
+      "resourceId": "mix-iam-005",
+      "type": "iam_user",
+      "name": "lead-architect-01",
+      "environment": "production",
+      "criticality": "critical",
+      "configuration": {
+        "mfaEnabled": true,
+        "isPrivileged": true,
+        "policies": [
+          {
+            "policyName": "ArchitectRestrictedReview",
+            "actions": ["cloudwatch:*", "ec2:Describe*", "s3:List*"],
+            "effect": "Allow",
+            "resources": ["*"]
+          }
+        ]
+      },
+      "tags": {
+        "owner": "secops",
+        "environment": "production",
+        "dataClassification": "confidential"
+      }
+    },
+    {
+      "resourceId": "mix-iam-006",
+      "type": "iam_role",
+      "name": "lambda-data-sync-role",
+      "environment": "production",
+      "criticality": "high",
+      "configuration": {
+        "mfaEnabled": true,
+        "isPrivileged": false,
+        "policies": [
+          {
+            "policyName": "WildcardFullAdmin",
+            "actions": ["*"],
+            "effect": "Allow",
+            "resources": ["*"]
+          }
+        ]
+      },
+      "tags": {
+        "owner": "automation-team",
+        "environment": "production",
+        "dataClassification": "internal"
+      }
+    },
+    {
+      "resourceId": "mix-vm-007",
+      "type": "virtual_machine",
+      "name": "production-api-gateway",
+      "environment": "production",
+      "criticality": "critical",
+      "configuration": {
+        "publicIp": true,
+        "inboundRules": [
+          { "protocol": "tcp", "port": 443, "source": "0.0.0.0/0" },
+          { "protocol": "tcp", "port": 80, "source": "0.0.0.0/0" }
+        ],
+        "detailedMonitoring": true,
+        "diskEncrypted": true
+      },
+      "tags": {
+        "owner": "networking-team",
+        "environment": "production",
+        "dataClassification": "confidential"
+      }
+    },
+    {
+      "resourceId": "mix-vm-008",
+      "type": "virtual_machine",
+      "name": "legacy-jumpbox",
+      "environment": "staging",
+      "criticality": "high",
+      "configuration": {
+        "publicIp": true,
+        "inboundRules": [
+          { "protocol": "tcp", "port": 22, "source": "0.0.0.0/0" }
+        ],
+        "detailedMonitoring": false,
+        "diskEncrypted": false
+      },
+      "tags": {
+        "owner": "ops"
+      }
+    },
+    {
+      "resourceId": "mix-secgroup-009",
+      "type": "security_group",
+      "name": "sg-public-rdp-risk",
+      "environment": "development",
+      "criticality": "high",
+      "configuration": {
+        "inboundRules": [
+          { "protocol": "tcp", "port": 3389, "source": "0.0.0.0/0" }
+        ]
+      },
+      "tags": {}
+    },
+    {
+      "resourceId": "mix-audit-010",
+      "type": "audit_log",
+      "name": "central-trail-ap-south",
+      "environment": "production",
+      "criticality": "critical",
+      "configuration": {
+        "auditLoggingEnabled": true,
+        "multiRegion": true,
+        "logFileValidation": true,
+        "retentionDays": 180
+      },
+      "tags": {
+        "owner": "secops",
+        "environment": "production",
+        "dataClassification": "confidential"
+      }
+    }
+  ]
+}

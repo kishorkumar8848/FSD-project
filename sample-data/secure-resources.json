@@ -1,0 +1,116 @@
+{
+  "provider": "simulated",
+  "accountName": "Hardened Enterprise Core",
+  "region": "us-east-1",
+  "environment": "production",
+  "resources": [
+    {
+      "resourceId": "sec-store-001",
+      "type": "storage_bucket",
+      "name": "prod-customer-vault-secure",
+      "environment": "production",
+      "criticality": "critical",
+      "configuration": {
+        "publicAccess": false,
+        "encryptionEnabled": true,
+        "encryptionType": "aws:kms",
+        "versioningEnabled": true,
+        "tlsRequired": true,
+        "loggingEnabled": true
+      },
+      "tags": {
+        "owner": "security-core",
+        "environment": "production",
+        "dataClassification": "confidential"
+      }
+    },
+    {
+      "resourceId": "sec-db-002",
+      "type": "database",
+      "name": "prod-orders-postgres",
+      "environment": "production",
+      "criticality": "critical",
+      "configuration": {
+        "publicAccess": false,
+        "encryptionEnabled": true,
+        "backupEnabled": true,
+        "backupRetentionDays": 30,
+        "multiAz": true,
+        "inboundRules": [
+          { "protocol": "tcp", "port": 5432, "source": "10.0.10.0/24" }
+        ]
+      },
+      "tags": {
+        "owner": "data-platform",
+        "environment": "production",
+        "dataClassification": "restricted"
+      }
+    },
+    {
+      "resourceId": "sec-iam-003",
+      "type": "iam_user",
+      "name": "admin-breakglass-01",
+      "environment": "production",
+      "criticality": "high",
+      "configuration": {
+        "mfaEnabled": true,
+        "isPrivileged": true,
+        "passwordAgeDays": 45,
+        "accessKeysCount": 1,
+        "policies": [
+          {
+            "policyName": "ScatteredAdminOperations",
+            "actions": ["s3:GetObject", "s3:PutObject", "ec2:DescribeInstances"],
+            "effect": "Allow",
+            "resources": ["arn:aws:s3:::prod-customer-vault-secure/*"]
+          }
+        ]
+      },
+      "tags": {
+        "owner": "identity-ops",
+        "environment": "production",
+        "dataClassification": "internal"
+      }
+    },
+    {
+      "resourceId": "sec-vm-004",
+      "type": "virtual_machine",
+      "name": "k8s-worker-node-01",
+      "environment": "production",
+      "criticality": "high",
+      "configuration": {
+        "publicIp": false,
+        "inboundRules": [
+          { "protocol": "tcp", "port": 443, "source": "10.0.0.0/16" },
+          { "protocol": "tcp", "port": 22, "source": "10.0.1.50/32" }
+        ],
+        "detailedMonitoring": true,
+        "diskEncrypted": true
+      },
+      "tags": {
+        "owner": "infra-sre",
+        "environment": "production",
+        "dataClassification": "internal"
+      }
+    },
+    {
+      "resourceId": "sec-audit-005",
+      "type": "audit_log",
+      "name": "global-trail-prod",
+      "environment": "production",
+      "criticality": "critical",
+      "configuration": {
+        "auditLoggingEnabled": true,
+        "multiRegion": true,
+        "logFileValidation": true,
+        "retentionDays": 365,
+        "kmsKeyConfigured": true
+      },
+      "tags": {
+        "owner": "compliance-team",
+        "environment": "production",
+        "dataClassification": "confidential"
+      }
+    }
+  ]
+}

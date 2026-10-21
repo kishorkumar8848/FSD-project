@@ -1,0 +1,107 @@
+{
+  "provider": "simulated",
+  "accountName": "Vulnerable Dev Sandbox",
+  "region": "us-west-2",
+  "environment": "development",
+  "resources": [
+    {
+      "resourceId": "vuln-store-001",
+      "type": "storage_bucket",
+      "name": "public-analytics-dump",
+      "environment": "development",
+      "criticality": "critical",
+      "configuration": {
+        "publicAccess": true,
+        "encryptionEnabled": false,
+        "versioningEnabled": false,
+        "tlsRequired": false
+      },
+      "tags": {
+        "notes": "temporary dump"
+      }
+    },
+    {
+      "resourceId": "vuln-db-002",
+      "type": "database",
+      "name": "legacy-customer-db",
+      "environment": "staging",
+      "criticality": "critical",
+      "configuration": {
+        "publicAccess": true,
+        "encryptionEnabled": false,
+        "backupEnabled": false,
+        "backupRetentionDays": 0,
+        "inboundRules": [
+          { "protocol": "tcp", "port": 3306, "source": "0.0.0.0/0" }
+        ]
+      },
+      "tags": {
+        "owner": "legacy-app"
+      }
+    },
+    {
+      "resourceId": "vuln-iam-003",
+      "type": "iam_user",
+      "name": "deployer-service-account",
+      "environment": "production",
+      "criticality": "high",
+      "configuration": {
+        "mfaEnabled": false,
+        "isPrivileged": true,
+        "policies": [
+          {
+            "policyName": "SuperAdminFullAccess",
+            "actions": ["*"],
+            "effect": "Allow",
+            "resources": ["*"]
+          }
+        ]
+      },
+      "tags": {}
+    },
+    {
+      "resourceId": "vuln-vm-004",
+      "type": "virtual_machine",
+      "name": "bastion-test-host",
+      "environment": "development",
+      "criticality": "high",
+      "configuration": {
+        "publicIp": true,
+        "inboundRules": [
+          { "protocol": "tcp", "port": 22, "source": "0.0.0.0/0" },
+          { "protocol": "tcp", "port": 3389, "source": "0.0.0.0/0" }
+        ]
+      },
+      "tags": {
+        "environment": "development"
+      }
+    },
+    {
+      "resourceId": "vuln-secgroup-005",
+      "type": "security_group",
+      "name": "open-management-sg",
+      "environment": "staging",
+      "criticality": "high",
+      "configuration": {
+        "inboundRules": [
+          { "protocol": "tcp", "port": 22, "source": "0.0.0.0/0" }
+        ]
+      },
+      "tags": {}
+    },
+    {
+      "resourceId": "vuln-audit-006",
+      "type": "audit_log",
+      "name": "unmonitored-trail",
+      "environment": "production",
+      "criticality": "critical",
+      "configuration": {
+        "auditLoggingEnabled": false,
+        "multiRegion": false
+      },
+      "tags": {
+        "owner": "devops"
+      }
+    }
+  ]
+}
