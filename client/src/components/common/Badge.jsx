@@ -3,11 +3,11 @@ import React from 'react';
 export function SeverityBadge({ severity }) {
   const sev = (severity || 'info').toLowerCase();
   const styles = {
-    critical: 'bg-red-500/15 text-red-400 border-red-500/30',
-    high: 'bg-orange-500/15 text-orange-400 border-orange-500/30',
-    medium: 'bg-amber-500/15 text-amber-400 border-amber-500/30',
-    low: 'bg-blue-500/15 text-blue-400 border-blue-500/30',
-    info: 'bg-slate-500/15 text-slate-400 border-slate-500/30',
+    critical: 'bg-red-50 text-red-700 border-red-200',
+    high: 'bg-orange-50 text-orange-700 border-orange-200',
+    medium: 'bg-amber-50 text-amber-800 border-amber-200',
+    low: 'bg-blue-50 text-blue-700 border-blue-200',
+    info: 'bg-slate-100 text-slate-700 border-slate-200',
   };
 
   return (
@@ -42,21 +42,21 @@ export function StatusBadge({ status }) {
   };
 
   const styles = {
-    open: 'bg-red-500/10 text-red-300 border-red-500/20',
-    in_progress: 'bg-amber-500/10 text-amber-300 border-amber-500/20',
-    resolved: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
-    accepted_risk: 'bg-purple-500/10 text-purple-300 border-purple-500/20',
-    false_positive: 'bg-slate-500/10 text-slate-400 border-slate-500/20',
-    pass: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
-    fail: 'bg-red-500/10 text-red-400 border-red-500/20',
-    not_applicable: 'bg-slate-600/15 text-slate-400 border-slate-600/30',
-    not_assessed: 'bg-slate-600/15 text-slate-400 border-slate-600/30',
+    open: 'bg-red-50 text-red-700 border-red-200',
+    in_progress: 'bg-amber-50 text-amber-700 border-amber-200',
+    resolved: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+    accepted_risk: 'bg-purple-50 text-purple-700 border-purple-200',
+    false_positive: 'bg-slate-100 text-slate-600 border-slate-200',
+    pass: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+    fail: 'bg-red-50 text-red-700 border-red-200',
+    not_applicable: 'bg-slate-100 text-slate-600 border-slate-200',
+    not_assessed: 'bg-slate-100 text-slate-600 border-slate-200',
   };
 
   return (
     <span
-      className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium border ${
-        styles[stat] || 'bg-slate-700 text-slate-300 border-slate-600'
+      className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${
+        styles[stat] || 'bg-slate-100 text-slate-700 border-slate-200'
       }`}
     >
       {labels[stat] || status}
@@ -67,13 +67,13 @@ export function StatusBadge({ status }) {
 export function EnvironmentBadge({ env }) {
   const val = (env || 'development').toLowerCase();
   const styles = {
-    production: 'bg-red-950/40 text-red-300 border-red-800/40',
-    staging: 'bg-amber-950/40 text-amber-300 border-amber-800/40',
-    development: 'bg-blue-950/40 text-blue-300 border-blue-800/40',
+    production: 'bg-red-50 text-red-700 border-red-200',
+    staging: 'bg-amber-50 text-amber-700 border-amber-200',
+    development: 'bg-blue-50 text-blue-700 border-blue-200',
   };
 
   return (
-    <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-mono border ${styles[val] || styles.development}`}>
+    <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-mono font-medium border ${styles[val] || styles.development}`}>
       {val}
     </span>
   );

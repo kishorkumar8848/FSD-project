@@ -10,9 +10,9 @@ export function AppLayout() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#0B1120] flex flex-col items-center justify-center text-slate-400">
-        <Loader2 className="w-8 h-8 text-blue-500 animate-spin mb-3" />
-        <span className="text-xs uppercase tracking-widest font-mono">Initializing CloudGuard...</span>
+      <div className="min-h-screen bg-[#F8FAFC] flex flex-col items-center justify-center text-slate-500">
+        <Loader2 className="w-8 h-8 text-[#1d68f0] animate-spin mb-3" />
+        <span className="text-xs uppercase tracking-widest font-mono text-slate-400">Initializing CloudGuard...</span>
       </div>
     );
   }
@@ -22,7 +22,7 @@ export function AppLayout() {
   }
 
   return (
-    <div className="flex min-h-screen bg-[#0B1120] text-slate-100">
+    <div className="flex min-h-screen bg-[#F8FAFC] text-slate-800">
       <Sidebar />
       <div className="flex-1 flex flex-col min-w-0">
         <TopNavbar />

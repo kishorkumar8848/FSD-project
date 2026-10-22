@@ -219,7 +219,7 @@ export function ImportConfigPage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 pb-12">
       <Breadcrumbs
         items={[
           { label: 'Resource Inventory', to: '/resources' },
@@ -227,25 +227,25 @@ export function ImportConfigPage() {
         ]}
       />
 
-      <div className="pb-2 border-b border-slate-800">
-        <h1 className="text-xl font-bold text-white tracking-tight flex items-center gap-2">
+      <div className="pb-2 border-b border-slate-200/80">
+        <h1 className="text-xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
           Import Cloud Configuration JSON
         </h1>
-        <p className="text-xs text-slate-400 mt-1">
+        <p className="text-xs text-slate-500 mt-1">
           Upload or paste JSON configuration schemas for cloud infrastructure posture evaluation
         </p>
       </div>
 
       {error && (
-        <div className="p-3 bg-red-950/50 border border-red-800 rounded-xl text-red-300 text-xs flex items-center gap-2">
-          <AlertCircle className="w-4 h-4 flex-shrink-0 text-red-400" />
+        <div className="p-3 bg-red-50 border border-red-200 rounded-xl text-red-700 text-xs flex items-center gap-2">
+          <AlertCircle className="w-4 h-4 flex-shrink-0 text-red-500" />
           <span>{error}</span>
         </div>
       )}
 
       {successMsg && (
-        <div className="p-3 bg-emerald-950/50 border border-emerald-800 rounded-xl text-emerald-300 text-xs flex items-center gap-2">
-          <CheckCircle2 className="w-4 h-4 flex-shrink-0 text-emerald-400" />
+        <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-700 text-xs flex items-center gap-2">
+          <CheckCircle2 className="w-4 h-4 flex-shrink-0 text-emerald-600" />
           <span>{successMsg}</span>
         </div>
       )}
@@ -261,15 +261,15 @@ export function ImportConfigPage() {
                 <button
                   type="button"
                   onClick={() => loadSample('vulnerable')}
-                  className="text-xs text-orange-400 hover:underline"
+                  className="text-xs text-orange-600 font-medium hover:underline"
                 >
                   Load Vulnerable Sample
                 </button>
-                <span className="text-slate-600">•</span>
+                <span className="text-slate-300">•</span>
                 <button
                   type="button"
                   onClick={() => loadSample('secure')}
-                  className="text-xs text-blue-400 hover:underline"
+                  className="text-xs text-blue-600 font-medium hover:underline"
                 >
                   Load Secure Sample
                 </button>
@@ -282,7 +282,7 @@ export function ImportConfigPage() {
                   type="file"
                   accept=".json,application/json"
                   onChange={handleFileUpload}
-                  className="text-xs text-slate-400 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-medium file:bg-slate-800 file:text-slate-200 hover:file:bg-slate-700 cursor-pointer"
+                  className="text-xs text-slate-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-medium file:bg-slate-100 file:text-slate-700 hover:file:bg-slate-200 cursor-pointer"
                 />
               </div>
 
@@ -294,7 +294,7 @@ export function ImportConfigPage() {
                   setPreviewData(null);
                 }}
                 placeholder='{\n  "provider": "simulated",\n  "accountName": "Demo Account",\n  "resources": [\n    {\n      "resourceId": "bucket-01",\n      "type": "storage_bucket",\n      "name": "data-archive",\n      "configuration": { "publicAccess": false, "encryptionEnabled": true }\n    }\n  ]\n}'
-                className="w-full bg-[#090D16] border border-slate-800 rounded-lg p-3 font-mono text-xs text-slate-200 placeholder-slate-600 focus:outline-none focus:border-blue-500"
+                className="w-full bg-slate-900 border border-slate-800 rounded-lg p-3 font-mono text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
 
               <div className="flex items-center justify-between pt-2">
@@ -319,13 +319,13 @@ export function ImportConfigPage() {
           <Card title="Target Account" subtitle="Assign imported assets to authorized account">
             <div className="space-y-4">
               <div>
-                <label className="block text-xs font-medium text-slate-300 mb-1">
+                <label className="block text-xs font-semibold text-slate-700 mb-1">
                   Destination Cloud Account
                 </label>
                 <select
                   value={selectedAccountId}
                   onChange={(e) => setSelectedAccountId(e.target.value)}
-                  className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
+                  className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 >
                   {accounts.map((acc) => (
                     <option key={acc._id} value={acc._id}>
@@ -336,18 +336,18 @@ export function ImportConfigPage() {
               </div>
 
               {previewData && (
-                <div className="pt-4 border-t border-slate-800 space-y-3">
+                <div className="pt-4 border-t border-slate-100 space-y-3">
                   <div className="flex items-center justify-between text-xs">
-                    <span className="text-slate-400">Validated Resources:</span>
-                    <span className="font-mono font-bold text-emerald-400">
+                    <span className="text-slate-600 font-medium">Validated Resources:</span>
+                    <span className="font-mono font-bold text-emerald-600">
                       {previewData.length} Valid
                     </span>
                   </div>
 
-                  <div className="max-h-48 overflow-y-auto space-y-1.5 p-2 bg-slate-900/60 rounded border border-slate-800">
+                  <div className="max-h-48 overflow-y-auto space-y-1.5 p-2 bg-slate-50 rounded border border-slate-200">
                     {previewData.map((item, idx) => (
-                      <div key={idx} className="text-[11px] font-mono text-slate-300 flex justify-between">
-                        <span className="truncate max-w-[140px]">{item.name}</span>
+                      <div key={idx} className="text-[11px] font-mono text-slate-700 flex justify-between">
+                        <span className="truncate max-w-[140px] font-medium">{item.name}</span>
                         <span className="text-slate-500">{item.type}</span>
                       </div>
                     ))}

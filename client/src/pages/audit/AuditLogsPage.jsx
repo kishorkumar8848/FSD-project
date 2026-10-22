@@ -32,12 +32,12 @@ export function AuditLogsPage() {
 
   return (
     <div className="space-y-6 pb-12">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-200/80">
         <div>
-          <h1 className="text-xl font-bold text-white tracking-tight flex items-center gap-2">
+          <h1 className="text-xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
             Administrative Audit Trail
           </h1>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs text-slate-500 mt-1">
             Tamper-resistant append-only governance log capturing identity actions and security mutations
           </p>
         </div>
@@ -45,7 +45,7 @@ export function AuditLogsPage() {
         <select
           value={actionFilter}
           onChange={(e) => setActionFilter(e.target.value)}
-          className="bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-slate-300 focus:outline-none focus:border-blue-500"
+          className="bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-700 focus:outline-none focus:bg-white focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
         >
           <option value="">All Action Types</option>
           <option value="AUTH_LOGIN">Login Events</option>
@@ -59,7 +59,7 @@ export function AuditLogsPage() {
         </select>
       </div>
 
-      <div className="bg-[#111827] border border-slate-800 rounded-xl overflow-hidden shadow-sm">
+      <div className="bg-white border border-slate-200/80 rounded-xl overflow-hidden shadow-xs">
         {loading ? (
           <div className="p-6">
             <LoadingSkeleton rows={6} height="h-10" />
@@ -73,7 +73,7 @@ export function AuditLogsPage() {
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-900/60 border-b border-slate-800 uppercase text-[10px] text-slate-400 font-semibold tracking-wider">
+              <thead className="bg-slate-50 border-b border-slate-100 uppercase text-[10px] text-slate-500 font-semibold tracking-wider">
                 <tr>
                   <th className="py-3 px-4">Timestamp</th>
                   <th className="py-3 px-4">Action</th>
@@ -83,10 +83,10 @@ export function AuditLogsPage() {
                   <th className="py-3 px-4">IP Address</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/80 font-mono text-[11px]">
+              <tbody className="divide-y divide-slate-100 font-mono text-[11px]">
                 {logs.map((log) => (
-                  <tr key={log._id} className="hover:bg-slate-800/40 transition-colors">
-                    <td className="py-3 px-4 text-slate-400 font-sans">
+                  <tr key={log._id} className="hover:bg-slate-50/70 transition-colors">
+                    <td className="py-3 px-4 text-slate-500 font-sans">
                       {new Date(log.createdAt).toLocaleString([], {
                         month: 'short',
                         day: 'numeric',
@@ -96,21 +96,21 @@ export function AuditLogsPage() {
                       })}
                     </td>
                     <td className="py-3 px-4">
-                      <span className="font-bold text-blue-400 bg-blue-950/40 border border-blue-800/60 px-1.5 py-0.5 rounded text-[10px]">
+                      <span className="font-bold text-blue-700 bg-blue-50 border border-blue-200 px-1.5 py-0.5 rounded text-[10px]">
                         {log.action}
                       </span>
                     </td>
-                    <td className="py-3 px-4 font-sans text-slate-300">
+                    <td className="py-3 px-4 font-sans text-slate-800">
                       {log.actorEmail}
-                      <span className="text-[10px] text-slate-500 block uppercase font-mono">
+                      <span className="text-[10px] text-slate-400 block uppercase font-mono">
                         {log.actorRole}
                       </span>
                     </td>
-                    <td className="py-3 px-4 uppercase text-slate-400">{log.targetType}</td>
-                    <td className="py-3 px-4 text-slate-300 font-sans text-xs max-w-xs truncate">
+                    <td className="py-3 px-4 uppercase text-slate-600">{log.targetType}</td>
+                    <td className="py-3 px-4 text-slate-600 font-sans text-xs max-w-xs truncate">
                       {JSON.stringify(log.details)}
                     </td>
-                    <td className="py-3 px-4 text-slate-500">{log.ipAddress}</td>
+                    <td className="py-3 px-4 text-slate-400">{log.ipAddress}</td>
                   </tr>
                 ))}
               </tbody>

@@ -68,20 +68,20 @@ export function Sidebar() {
   ];
 
   return (
-    <aside className="w-64 bg-[#111827] border-r border-slate-800/80 flex flex-col flex-shrink-0 min-h-screen">
+    <aside className="w-64 bg-white border-r border-slate-200/90 flex flex-col flex-shrink-0 min-h-screen select-none">
       {/* Brand Logo & Name */}
-      <div className="h-16 flex items-center px-6 border-b border-slate-800/80 gap-3">
-        <div className="w-9 h-9 rounded-lg bg-blue-600/20 border border-blue-500/40 flex items-center justify-center text-blue-400">
-          <Shield className="w-5 h-5" />
+      <div className="h-16 flex items-center px-6 border-b border-slate-100 gap-3">
+        <div className="w-9 h-9 rounded-lg bg-[#1d68f0] flex items-center justify-center text-white shadow-sm shadow-blue-500/25">
+          <Shield className="w-5 h-5 fill-current" />
         </div>
         <div>
-          <div className="text-base font-bold tracking-tight text-white flex items-center gap-1.5">
+          <div className="text-base font-bold tracking-tight text-slate-900 flex items-center gap-1.5">
             CloudGuard
-            <span className="text-[10px] bg-blue-500/10 text-blue-400 border border-blue-500/20 px-1 py-0.2 rounded font-mono font-normal">
+            <span className="text-[10px] bg-blue-50 text-[#1d68f0] border border-blue-200/80 px-1.5 py-0.2 rounded font-mono font-semibold">
               CSPM
             </span>
           </div>
-          <div className="text-[11px] text-slate-400">Security Posture Platform</div>
+          <div className="text-[11px] text-slate-500 font-medium">Security Posture Platform</div>
         </div>
       </div>
 
@@ -101,8 +101,8 @@ export function Sidebar() {
                   className={({ isActive }) =>
                     `flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium transition-all ${
                       isActive
-                        ? 'bg-blue-600/15 text-blue-400 border border-blue-500/30'
-                        : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
+                        ? 'bg-[#1d68f0] text-white shadow-sm shadow-blue-500/25'
+                        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/80'
                     }`
                   }
                 >
@@ -116,13 +116,13 @@ export function Sidebar() {
       </nav>
 
       {/* Mode / Environment Indicator */}
-      <div className="p-4 border-t border-slate-800/80 bg-slate-900/40">
-        <div className="flex items-center justify-between text-xs text-slate-400">
-          <span className="flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+      <div className="p-4 border-t border-slate-100 bg-slate-50/60">
+        <div className="flex items-center justify-between text-xs text-slate-600">
+          <span className="flex items-center gap-1.5 font-medium">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
             Engine Online
           </span>
-          <span className="text-[11px] font-mono text-slate-400 bg-slate-800 px-1.5 py-0.5 rounded">
+          <span className="text-[11px] font-mono text-slate-600 bg-white border border-slate-200 px-1.5 py-0.5 rounded shadow-2xs">
             Simulated
           </span>
         </div>

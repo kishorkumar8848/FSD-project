@@ -51,24 +51,24 @@ export function FindingsPage() {
   }, [search, severity, status, category]);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 pb-12">
       {/* Title */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-200/80">
         <div>
-          <h1 className="text-xl font-bold text-white tracking-tight flex items-center gap-2">
+          <h1 className="text-xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
             Findings Center
-            <span className="text-xs bg-slate-800 text-slate-300 px-2 py-0.5 rounded border border-slate-700">
+            <span className="text-xs bg-blue-50 text-blue-600 px-2 py-0.5 rounded font-semibold border border-blue-100">
               {pagination.total} Violations
             </span>
           </h1>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs text-slate-500 mt-1">
             Triaged security misconfigurations, rule non-compliances, and remediation workflows
           </p>
         </div>
       </div>
 
       {/* Filter Toolbar */}
-      <div className="bg-[#111827] border border-slate-800 p-4 rounded-xl flex flex-wrap items-center gap-3">
+      <div className="bg-white border border-slate-200/80 p-4 rounded-xl shadow-xs flex flex-wrap items-center gap-3">
         <div className="relative flex-1 min-w-[220px]">
           <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
           <input
@@ -76,14 +76,14 @@ export function FindingsPage() {
             placeholder="Search by title, rule ID, or resource..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full bg-slate-900 border border-slate-700/80 rounded-lg pl-9 pr-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
+            className="w-full bg-slate-50 border border-slate-200 rounded-lg pl-9 pr-3 py-1.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:bg-white focus:ring-1 focus:ring-blue-500 focus:border-blue-500 transition-colors"
           />
         </div>
 
         <select
           value={severity}
           onChange={(e) => setSeverity(e.target.value)}
-          className="bg-slate-900 border border-slate-700/80 rounded-lg px-3 py-1.5 text-xs text-slate-300 focus:outline-none focus:border-blue-500"
+          className="bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-700 focus:outline-none focus:bg-white focus:ring-1 focus:ring-blue-500 focus:border-blue-500 transition-colors"
         >
           <option value="">All Severities</option>
           <option value="critical">Critical</option>
@@ -95,7 +95,7 @@ export function FindingsPage() {
         <select
           value={status}
           onChange={(e) => setStatus(e.target.value)}
-          className="bg-slate-900 border border-slate-700/80 rounded-lg px-3 py-1.5 text-xs text-slate-300 focus:outline-none focus:border-blue-500"
+          className="bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-700 focus:outline-none focus:bg-white focus:ring-1 focus:ring-blue-500 focus:border-blue-500 transition-colors"
         >
           <option value="">All Statuses</option>
           <option value="open">Open</option>
@@ -108,7 +108,7 @@ export function FindingsPage() {
         <select
           value={category}
           onChange={(e) => setCategory(e.target.value)}
-          className="bg-slate-900 border border-slate-700/80 rounded-lg px-3 py-1.5 text-xs text-slate-300 focus:outline-none focus:border-blue-500"
+          className="bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-700 focus:outline-none focus:bg-white focus:ring-1 focus:ring-blue-500 focus:border-blue-500 transition-colors"
         >
           <option value="">All Categories</option>
           <option value="Storage Security">Storage Security</option>
@@ -122,7 +122,7 @@ export function FindingsPage() {
       </div>
 
       {/* Findings Table */}
-      <div className="bg-[#111827] border border-slate-800 rounded-xl overflow-hidden shadow-sm">
+      <div className="bg-white border border-slate-200/80 rounded-xl overflow-hidden shadow-xs">
         {loading ? (
           <div className="p-6">
             <LoadingSkeleton rows={6} height="h-10" />
@@ -136,7 +136,7 @@ export function FindingsPage() {
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-900/60 border-b border-slate-800 uppercase text-[10px] text-slate-400 font-semibold tracking-wider">
+              <thead className="bg-slate-50 border-b border-slate-100 uppercase text-[10px] text-slate-500 font-semibold tracking-wider">
                 <tr>
                   <th className="py-3 px-4">Severity</th>
                   <th className="py-3 px-4">Finding Title</th>
@@ -148,41 +148,41 @@ export function FindingsPage() {
                   <th className="py-3 px-4 text-right">Action</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/80">
+              <tbody className="divide-y divide-slate-100">
                 {findings.map((f) => (
-                  <tr key={f._id} className="hover:bg-slate-800/40 transition-colors">
+                  <tr key={f._id} className="hover:bg-slate-50/70 transition-colors">
                     <td className="py-3 px-4">
                       <SeverityBadge severity={f.severity} />
                     </td>
                     <td className="py-3 px-4">
                       <Link
                         to={`/findings/${f._id}`}
-                        className="font-semibold text-slate-200 hover:text-blue-400 block max-w-sm truncate"
+                        className="font-semibold text-slate-900 hover:text-blue-600 block max-w-sm truncate transition-colors"
                       >
                         {f.title}
                       </Link>
-                      <span className="font-mono text-[11px] text-slate-500">{f.ruleId}</span>
+                      <span className="font-mono text-[11px] text-slate-400">{f.ruleId}</span>
                     </td>
                     <td className="py-3 px-4">
-                      <span className="font-medium text-slate-300 block">{f.resourceName}</span>
+                      <span className="font-medium text-slate-800 block">{f.resourceName}</span>
                       <span className="font-mono text-[11px] text-slate-500">
                         {f.resourceType} • {f.account?.name}
                       </span>
                     </td>
-                    <td className="py-3 px-4 text-slate-400">{f.category}</td>
-                    <td className="py-3 px-4 font-mono font-bold text-orange-400">
+                    <td className="py-3 px-4 text-slate-600">{f.category}</td>
+                    <td className="py-3 px-4 font-mono font-bold text-orange-600">
                       {f.riskScore}
                     </td>
                     <td className="py-3 px-4">
                       <StatusBadge status={f.status} />
                     </td>
-                    <td className="py-3 px-4 text-slate-400 text-[11px]">
+                    <td className="py-3 px-4 text-slate-500 text-[11px]">
                       {new Date(f.lastDetectedAt).toLocaleDateString()}
                     </td>
                     <td className="py-3 px-4 text-right">
                       <Link
                         to={`/findings/${f._id}`}
-                        className="text-blue-400 hover:text-blue-300 inline-flex items-center gap-1 font-medium"
+                        className="text-blue-600 hover:text-blue-700 inline-flex items-center gap-1 font-medium"
                       >
                         Remediate <ArrowUpRight className="w-3.5 h-3.5" />
                       </Link>
@@ -196,7 +196,7 @@ export function FindingsPage() {
 
         {/* Pagination Footer */}
         {pagination.totalPages > 1 && (
-          <div className="px-5 py-3 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400">
+          <div className="px-5 py-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500 bg-slate-50/50">
             <span>
               Page {pagination.page} of {pagination.totalPages} ({pagination.total} findings)
             </span>

@@ -17,19 +17,19 @@ export function Modal({ isOpen, onClose, title, children, maxWidth = 'max-w-lg' 
       <div className="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
         {/* Backdrop */}
         <div
-          className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm transition-opacity"
+          className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs transition-opacity"
           onClick={onClose}
         />
 
         {/* Modal Dialog */}
         <div
-          className={`relative transform overflow-hidden rounded-xl bg-[#111827] border border-slate-700/80 text-left shadow-2xl transition-all w-full ${maxWidth} z-10`}
+          className={`relative transform overflow-hidden rounded-2xl bg-white border border-slate-200 text-left shadow-2xl transition-all w-full ${maxWidth} z-10`}
         >
-          <div className="px-6 py-4 border-b border-slate-800 flex items-center justify-between">
-            <h3 className="text-base font-semibold text-slate-100">{title}</h3>
+          <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
+            <h3 className="text-base font-semibold text-slate-900">{title}</h3>
             <button
               onClick={onClose}
-              className="text-slate-400 hover:text-slate-200 transition-colors rounded-lg p-1 hover:bg-slate-800"
+              className="text-slate-400 hover:text-slate-600 transition-colors rounded-lg p-1 hover:bg-slate-100"
             >
               <X className="w-5 h-5" />
             </button>

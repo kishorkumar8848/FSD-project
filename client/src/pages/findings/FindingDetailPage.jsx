@@ -113,7 +113,7 @@ export function FindingDetailPage() {
   };
 
   if (loading) return <LoadingSkeleton rows={6} height="h-20" />;
-  if (!finding) return <div className="text-center py-12 text-slate-400">Finding not found.</div>;
+  if (!finding) return <div className="text-center py-12 text-slate-500">Finding not found.</div>;
 
   return (
     <div className="space-y-6 pb-12">
@@ -125,18 +125,18 @@ export function FindingDetailPage() {
       />
 
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 pb-2 border-b border-slate-800">
+      <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 pb-2 border-b border-slate-200/80">
         <div>
           <div className="flex items-center gap-3 mb-1">
             <SeverityBadge severity={finding.severity} />
             <StatusBadge status={finding.status} />
-            <span className="font-mono text-xs bg-slate-800 text-slate-300 px-2 py-0.5 rounded border border-slate-700">
+            <span className="font-mono text-xs bg-slate-50 text-slate-700 px-2 py-0.5 rounded border border-slate-200 font-semibold">
               Risk: {finding.riskScore}/100
             </span>
           </div>
-          <h1 className="text-xl font-bold text-white tracking-tight">{finding.title}</h1>
-          <p className="text-xs text-slate-400 mt-1">
-            Rule ID: <span className="text-slate-200 font-mono">{finding.ruleId}</span> (v{finding.ruleVersion}) •
+          <h1 className="text-xl font-bold text-slate-900 tracking-tight">{finding.title}</h1>
+          <p className="text-xs text-slate-500 mt-1">
+            Rule ID: <span className="text-slate-800 font-mono font-medium">{finding.ruleId}</span> (v{finding.ruleVersion}) •
             Category: {finding.category} • First detected: {new Date(finding.firstDetectedAt).toLocaleDateString()}
           </p>
         </div>
@@ -173,14 +173,14 @@ export function FindingDetailPage() {
         <div
           className={`p-4 rounded-xl border text-xs flex items-center gap-3 ${
             verifyMessage.success
-              ? 'bg-emerald-950/40 border-emerald-800/80 text-emerald-300'
-              : 'bg-red-950/40 border-red-800/80 text-red-300'
+              ? 'bg-emerald-50 border-emerald-200 text-emerald-800'
+              : 'bg-red-50 border-red-200 text-red-800'
           }`}
         >
           {verifyMessage.success ? (
-            <CheckCircle2 className="w-5 h-5 flex-shrink-0 text-emerald-400" />
+            <CheckCircle2 className="w-5 h-5 flex-shrink-0 text-emerald-600" />
           ) : (
-            <AlertTriangle className="w-5 h-5 flex-shrink-0 text-red-400" />
+            <AlertTriangle className="w-5 h-5 flex-shrink-0 text-red-600" />
           )}
           <span>{verifyMessage.text}</span>
         </div>
@@ -196,36 +196,36 @@ export function FindingDetailPage() {
             subtitle="Deterministic rule evaluation telemetry supporting this finding"
           >
             <div className="space-y-4">
-              <div className="p-3 bg-red-950/30 border border-red-900/60 rounded-lg text-xs">
-                <span className="font-semibold text-red-300 block mb-1">Observed Violation:</span>
-                <p className="text-slate-300 font-mono text-[11px] leading-relaxed">
+              <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-xs">
+                <span className="font-semibold text-red-800 block mb-1">Observed Violation:</span>
+                <p className="text-slate-700 font-mono text-[11px] leading-relaxed">
                   {finding.evidence?.message || finding.description}
                 </p>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-mono">
-                <div className="p-3 bg-slate-900 border border-slate-800 rounded-lg">
-                  <span className="text-[10px] text-slate-500 uppercase tracking-wider block mb-1">
+                <div className="p-3 bg-slate-50 border border-slate-200 rounded-lg">
+                  <span className="text-[10px] text-slate-500 uppercase tracking-wider block mb-1 font-semibold">
                     Actual Detected State
                   </span>
-                  <span className="text-red-400">
+                  <span className="text-red-700 font-semibold">
                     {finding.evidence?.actualValue || 'Non-compliant configuration'}
                   </span>
                 </div>
-                <div className="p-3 bg-slate-900 border border-slate-800 rounded-lg">
-                  <span className="text-[10px] text-slate-500 uppercase tracking-wider block mb-1">
+                <div className="p-3 bg-slate-50 border border-slate-200 rounded-lg">
+                  <span className="text-[10px] text-slate-500 uppercase tracking-wider block mb-1 font-semibold">
                     Expected Secure Baseline
                   </span>
-                  <span className="text-emerald-400">
+                  <span className="text-emerald-700 font-semibold">
                     {finding.evidence?.expectedValue || 'Compliant configuration'}
                   </span>
                 </div>
               </div>
 
               {finding.businessImpact && (
-                <div className="p-3 bg-slate-900/60 border border-slate-800 rounded-lg text-xs">
-                  <span className="text-slate-400 font-medium block mb-1">Business Impact:</span>
-                  <p className="text-slate-300 leading-relaxed">{finding.businessImpact}</p>
+                <div className="p-3 bg-slate-50 border border-slate-200 rounded-lg text-xs">
+                  <span className="text-slate-700 font-semibold block mb-1">Business Impact:</span>
+                  <p className="text-slate-600 leading-relaxed">{finding.businessImpact}</p>
                 </div>
               )}
             </div>
@@ -238,16 +238,16 @@ export function FindingDetailPage() {
           >
             <div className="space-y-4 text-xs">
               <div>
-                <h4 className="font-semibold text-slate-200 mb-1">Summary</h4>
-                <p className="text-slate-300 leading-relaxed">
+                <h4 className="font-semibold text-slate-900 mb-1">Summary</h4>
+                <p className="text-slate-700 leading-relaxed">
                   {finding.remediationInstructions?.summary}
                 </p>
               </div>
 
               {finding.remediationInstructions?.stepByStep?.length > 0 && (
                 <div>
-                  <h4 className="font-semibold text-slate-200 mb-2">Prescribed Actions</h4>
-                  <ol className="list-decimal list-inside space-y-1.5 text-slate-300">
+                  <h4 className="font-semibold text-slate-900 mb-2">Prescribed Actions</h4>
+                  <ol className="list-decimal list-inside space-y-1.5 text-slate-700">
                     {finding.remediationInstructions.stepByStep.map((step, idx) => (
                       <li key={idx} className="leading-relaxed pl-1">
                         {step}
@@ -258,11 +258,11 @@ export function FindingDetailPage() {
               )}
 
               {finding.remediationInstructions?.operationalImpact && (
-                <div className="p-3 bg-slate-900/80 border border-slate-800 rounded-lg">
-                  <span className="text-[11px] font-semibold text-amber-400 block mb-0.5">
+                <div className="p-3 bg-amber-50 border border-amber-200 rounded-lg">
+                  <span className="text-[11px] font-semibold text-amber-800 block mb-0.5">
                     Operational Considerations:
                   </span>
-                  <p className="text-[11px] text-slate-300">
+                  <p className="text-[11px] text-slate-700">
                     {finding.remediationInstructions.operationalImpact}
                   </p>
                 </div>
@@ -277,26 +277,26 @@ export function FindingDetailPage() {
           >
             <div className="space-y-3">
               {finding.statusHistory?.length === 0 ? (
-                <div className="text-xs text-slate-500">No status updates recorded.</div>
+                <div className="text-xs text-slate-400">No status updates recorded.</div>
               ) : (
                 finding.statusHistory.map((item, idx) => (
                   <div
                     key={idx}
-                    className="p-3 bg-slate-900/60 border border-slate-800 rounded-lg text-xs space-y-1"
+                    className="p-3 bg-slate-50 border border-slate-200 rounded-lg text-xs space-y-1"
                   >
                     <div className="flex items-center justify-between text-[11px]">
-                      <span className="font-medium text-slate-300">
+                      <span className="font-medium text-slate-800">
                         {item.actorName || 'System'} changed status to{' '}
-                        <span className="uppercase font-mono font-bold text-blue-400">
+                        <span className="uppercase font-mono font-bold text-blue-600">
                           {item.toStatus}
                         </span>
                       </span>
-                      <span className="text-slate-500">
+                      <span className="text-slate-400">
                         {new Date(item.timestamp).toLocaleString()}
                       </span>
                     </div>
                     {item.reason && (
-                      <p className="text-[11px] text-slate-400 font-sans italic">
+                      <p className="text-[11px] text-slate-600 font-sans italic">
                         "{item.reason}"
                       </p>
                     )}
@@ -316,7 +316,7 @@ export function FindingDetailPage() {
                 <span className="text-[11px] text-slate-500 block">Resource Name</span>
                 <Link
                   to={`/resources/${finding.resource?._id || finding.resource}`}
-                  className="font-semibold text-blue-400 hover:underline block truncate"
+                  className="font-semibold text-blue-600 hover:underline block truncate"
                 >
                   {finding.resourceName}
                 </Link>
@@ -324,17 +324,17 @@ export function FindingDetailPage() {
 
               <div>
                 <span className="text-[11px] text-slate-500 block">Resource Identifier</span>
-                <span className="font-mono text-slate-300">{finding.resourceId}</span>
+                <span className="font-mono text-slate-700">{finding.resourceId}</span>
               </div>
 
               <div>
                 <span className="text-[11px] text-slate-500 block">Asset Type</span>
-                <span className="font-mono text-slate-300">{finding.resourceType}</span>
+                <span className="font-mono text-slate-700">{finding.resourceType}</span>
               </div>
 
               <div>
                 <span className="text-[11px] text-slate-500 block">Cloud Account</span>
-                <span className="text-slate-300">{finding.account?.name}</span>
+                <span className="text-slate-700">{finding.account?.name}</span>
               </div>
             </div>
           </Card>
@@ -343,12 +343,12 @@ export function FindingDetailPage() {
           <Card title="Mapped Security Controls" subtitle="Associated framework baselines">
             <div className="space-y-2">
               {finding.complianceMappings?.length === 0 ? (
-                <div className="text-xs text-slate-500">No framework mappings.</div>
+                <div className="text-xs text-slate-400">No framework mappings.</div>
               ) : (
                 finding.complianceMappings.map((cm, i) => (
-                  <div key={i} className="p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-xs">
-                    <span className="font-mono font-bold text-blue-400 block">{cm.controlId}</span>
-                    <span className="text-slate-200 font-medium block mt-0.5">{cm.controlTitle}</span>
+                  <div key={i} className="p-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs">
+                    <span className="font-mono font-bold text-blue-600 block">{cm.controlId}</span>
+                    <span className="text-slate-800 font-semibold block mt-0.5">{cm.controlTitle}</span>
                     <span className="text-[10px] text-slate-500 uppercase">{cm.framework}</span>
                   </div>
                 ))
@@ -361,10 +361,10 @@ export function FindingDetailPage() {
             <Card title="Active Risk Exception" subtitle="Documented risk tolerance">
               <div className="space-y-2 text-xs">
                 <div>
-                  <span className="text-[10px] text-purple-400 uppercase tracking-wider block">
+                  <span className="text-[10px] text-purple-700 uppercase tracking-wider block font-semibold">
                     Justification
                   </span>
-                  <p className="text-slate-300 mt-1 italic">
+                  <p className="text-slate-700 mt-1 italic">
                     "{finding.riskAcceptance?.justification}"
                   </p>
                 </div>
@@ -372,7 +372,7 @@ export function FindingDetailPage() {
                   <span className="text-[10px] text-slate-500 uppercase tracking-wider block">
                     Expiry Date
                   </span>
-                  <span className="font-mono text-slate-300">
+                  <span className="font-mono text-slate-700">
                     {finding.riskAcceptance?.expiresAt
                       ? new Date(finding.riskAcceptance.expiresAt).toLocaleDateString()
                       : 'None'}
@@ -392,13 +392,13 @@ export function FindingDetailPage() {
       >
         <form onSubmit={handleUpdateStatus} className="space-y-4">
           <div>
-            <label className="block text-xs font-medium text-slate-300 mb-1">
+            <label className="block text-xs font-semibold text-slate-700 mb-1">
               Select New Status
             </label>
             <select
               value={targetStatus}
               onChange={(e) => setTargetStatus(e.target.value)}
-              className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
+              className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             >
               <option value="open">Open</option>
               <option value="in_progress">In Progress</option>
@@ -408,7 +408,7 @@ export function FindingDetailPage() {
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-slate-300 mb-1">
+            <label className="block text-xs font-semibold text-slate-700 mb-1">
               Reason / Analyst Notes
             </label>
             <textarea
@@ -417,7 +417,7 @@ export function FindingDetailPage() {
               value={statusReason}
               onChange={(e) => setStatusReason(e.target.value)}
               placeholder="Provide reason for this status change..."
-              className="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
+              className="w-full bg-white border border-slate-200 rounded-lg p-2.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
 
@@ -445,7 +445,7 @@ export function FindingDetailPage() {
       >
         <form onSubmit={handleAcceptRisk} className="space-y-4">
           <div>
-            <label className="block text-xs font-medium text-slate-300 mb-1">
+            <label className="block text-xs font-semibold text-slate-700 mb-1">
               Business Justification (Mandatory)
             </label>
             <textarea
@@ -454,12 +454,12 @@ export function FindingDetailPage() {
               value={riskJustification}
               onChange={(e) => setRiskJustification(e.target.value)}
               placeholder="e.g. Compensating controls in place: asset is segregated behind corporate VPN with strict network firewall."
-              className="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
+              className="w-full bg-white border border-slate-200 rounded-lg p-2.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-slate-300 mb-1">
+            <label className="block text-xs font-semibold text-slate-700 mb-1">
               Mandatory Expiry Date
             </label>
             <input
@@ -467,7 +467,7 @@ export function FindingDetailPage() {
               required
               value={riskExpiry}
               onChange={(e) => setRiskExpiry(e.target.value)}
-              className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
+              className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             />
             <p className="text-[11px] text-slate-500 mt-1">
               When the exception expires, CloudGuard will automatically return the finding to Open.

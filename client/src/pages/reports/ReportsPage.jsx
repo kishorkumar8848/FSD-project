@@ -91,12 +91,12 @@ export function ReportsPage() {
   return (
     <div className="space-y-6 pb-12">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-200/80">
         <div>
-          <h1 className="text-xl font-bold text-white tracking-tight flex items-center gap-2">
+          <h1 className="text-xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
             Assessment Reports & Exports
           </h1>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs text-slate-500 mt-1">
             Download comprehensive executive security summaries and inventory exports
           </p>
         </div>
@@ -112,7 +112,7 @@ export function ReportsPage() {
       </div>
 
       {/* Reports Table */}
-      <div className="bg-[#111827] border border-slate-800 rounded-xl overflow-hidden shadow-sm">
+      <div className="bg-white border border-slate-200/80 rounded-xl overflow-hidden shadow-xs">
         {loading ? (
           <div className="p-6">
             <LoadingSkeleton rows={5} height="h-10" />
@@ -128,7 +128,7 @@ export function ReportsPage() {
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-900/60 border-b border-slate-800 uppercase text-[10px] text-slate-400 font-semibold tracking-wider">
+              <thead className="bg-slate-50 border-b border-slate-100 uppercase text-[10px] text-slate-500 font-semibold tracking-wider">
                 <tr>
                   <th className="py-3 px-4">Document Title</th>
                   <th className="py-3 px-4">Format</th>
@@ -139,37 +139,37 @@ export function ReportsPage() {
                   <th className="py-3 px-4 text-right">Download</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/80">
+              <tbody className="divide-y divide-slate-100">
                 {reports.map((rep) => (
-                  <tr key={rep._id} className="hover:bg-slate-800/40 transition-colors">
+                  <tr key={rep._id} className="hover:bg-slate-50/70 transition-colors">
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-2.5">
                         {rep.format === 'pdf' ? (
-                          <FileText className="w-4 h-4 text-red-400 flex-shrink-0" />
+                          <FileText className="w-4 h-4 text-red-500 flex-shrink-0" />
                         ) : (
-                          <FileSpreadsheet className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                          <FileSpreadsheet className="w-4 h-4 text-emerald-600 flex-shrink-0" />
                         )}
                         <div>
-                          <span className="font-semibold text-slate-200 block">{rep.title}</span>
-                          <span className="text-[11px] font-mono text-slate-500">{rep.fileName}</span>
+                          <span className="font-semibold text-slate-900 block">{rep.title}</span>
+                          <span className="text-[11px] font-mono text-slate-400">{rep.fileName}</span>
                         </div>
                       </div>
                     </td>
                     <td className="py-3 px-4">
-                      <span className="font-mono uppercase font-bold text-[10px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded border border-slate-700">
+                      <span className="font-mono uppercase font-bold text-[10px] bg-slate-50 text-slate-700 px-2 py-0.5 rounded border border-slate-200">
                         {rep.format}
                       </span>
                     </td>
-                    <td className="py-3 px-4 text-slate-300">
+                    <td className="py-3 px-4 text-slate-700">
                       {rep.account?.name || 'Primary Cloud Account'}
                     </td>
-                    <td className="py-3 px-4 font-mono font-bold text-blue-400">
+                    <td className="py-3 px-4 font-mono font-bold text-blue-600">
                       {rep.metadata?.postureScore ? `${rep.metadata.postureScore}/100` : '—'}
                     </td>
-                    <td className="py-3 px-4 text-slate-400 font-mono text-[11px]">
+                    <td className="py-3 px-4 text-slate-500 font-mono text-[11px]">
                       {rep.fileSize ? `${(rep.fileSize / 1024).toFixed(1)} KB` : 'N/A'}
                     </td>
-                    <td className="py-3 px-4 text-slate-400 text-[11px]">
+                    <td className="py-3 px-4 text-slate-500 text-[11px]">
                       {new Date(rep.createdAt).toLocaleDateString()}
                     </td>
                     <td className="py-3 px-4 text-right">
@@ -199,13 +199,13 @@ export function ReportsPage() {
       >
         <form onSubmit={handleGenerateReport} className="space-y-4">
           <div>
-            <label className="block text-xs font-medium text-slate-300 mb-1">
+            <label className="block text-xs font-semibold text-slate-700 mb-1">
               Target Cloud Account
             </label>
             <select
               value={formData.accountId}
               onChange={(e) => setFormData({ ...formData, accountId: e.target.value })}
-              className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
+              className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             >
               {accounts.map((a) => (
                 <option key={a._id} value={a._id}>
@@ -216,13 +216,13 @@ export function ReportsPage() {
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-slate-300 mb-1">
+            <label className="block text-xs font-semibold text-slate-700 mb-1">
               Report Format & Document Type
             </label>
             <select
               value={formData.reportType}
               onChange={(e) => setFormData({ ...formData, reportType: e.target.value })}
-              className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
+              className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             >
               <option value="executive_summary_pdf">
                 Executive Security Posture Report (PDF)
@@ -236,7 +236,7 @@ export function ReportsPage() {
             </select>
           </div>
 
-          <p className="text-[11px] text-slate-400">
+          <p className="text-[11px] text-slate-500">
             PDF reports are rendered with branded executive summaries, severity distribution, remediation actions, and NIST CSF compliance metrics.
           </p>
 

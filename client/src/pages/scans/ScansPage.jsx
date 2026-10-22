@@ -65,27 +65,27 @@ export function ScansPage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 pb-12">
       {/* Page Title & Action Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-200/80">
         <div>
-          <h1 className="text-xl font-bold text-white tracking-tight flex items-center gap-2">
+          <h1 className="text-xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
             Scan Center
-            <span className="text-xs bg-slate-800 text-slate-300 px-2 py-0.5 rounded border border-slate-700">
+            <span className="text-xs bg-blue-50 text-blue-600 px-2 py-0.5 rounded font-semibold border border-blue-100">
               {pagination.total} Total
             </span>
           </h1>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs text-slate-500 mt-1">
             Execute manual and scheduled deterministic security assessments across cloud accounts
           </p>
         </div>
 
         {/* Scan Initiation Trigger Bar */}
-        <div className="flex items-center gap-2 bg-[#111827] border border-slate-800 p-1.5 rounded-xl">
+        <div className="flex items-center gap-2 bg-white border border-slate-200 p-1.5 rounded-xl shadow-xs">
           <select
             value={selectedAccountId}
             onChange={(e) => setSelectedAccountId(e.target.value)}
-            className="bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-blue-500"
+            className="bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
           >
             {accounts.map((a) => (
               <option key={a._id} value={a._id}>
@@ -106,14 +106,14 @@ export function ScansPage() {
       </div>
 
       {alertMsg && (
-        <div className="p-3 bg-emerald-950/40 border border-emerald-800/60 rounded-xl text-emerald-400 text-xs flex items-center gap-2">
-          <CheckCircle2 className="w-4 h-4 flex-shrink-0" />
+        <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-700 text-xs flex items-center gap-2">
+          <CheckCircle2 className="w-4 h-4 flex-shrink-0 text-emerald-600" />
           <span>{alertMsg}</span>
         </div>
       )}
 
       {/* Scans History Table */}
-      <div className="bg-[#111827] border border-slate-800 rounded-xl overflow-hidden shadow-sm">
+      <div className="bg-white border border-slate-200/80 rounded-xl overflow-hidden shadow-xs">
         {loading ? (
           <div className="p-6">
             <LoadingSkeleton rows={5} height="h-10" />
@@ -129,7 +129,7 @@ export function ScansPage() {
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-900/60 border-b border-slate-800 uppercase text-[10px] text-slate-400 font-semibold tracking-wider">
+              <thead className="bg-slate-50 border-b border-slate-100 uppercase text-[10px] text-slate-500 font-semibold tracking-wider">
                 <tr>
                   <th className="py-3 px-4">Scan Identifier</th>
                   <th className="py-3 px-4">Account Target</th>
@@ -142,31 +142,31 @@ export function ScansPage() {
                   <th className="py-3 px-4 text-right">Results</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/80">
+              <tbody className="divide-y divide-slate-100">
                 {scans.map((scan) => {
                   const score = scan.postureScore ?? 100;
                   const scoreColor =
-                    score >= 80 ? 'text-emerald-400' : score >= 50 ? 'text-amber-400' : 'text-red-400';
+                    score >= 80 ? 'text-emerald-600' : score >= 50 ? 'text-amber-600' : 'text-red-600';
 
                   return (
-                    <tr key={scan._id} className="hover:bg-slate-800/40 transition-colors">
-                      <td className="py-3 px-4 font-mono font-medium text-slate-200">
+                    <tr key={scan._id} className="hover:bg-slate-50/70 transition-colors">
+                      <td className="py-3 px-4 font-mono font-semibold text-slate-900">
                         {scan._id.slice(-8).toUpperCase()}
                         <span className="block text-[10px] text-slate-500 font-sans uppercase">
                           {scan.scanType}
                         </span>
                       </td>
-                      <td className="py-3 px-4 text-slate-300 font-medium">
+                      <td className="py-3 px-4 text-slate-700 font-medium">
                         {scan.account?.name || 'Primary Account'}
                       </td>
                       <td className="py-3 px-4">
                         <span
                           className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${
                             scan.status === 'completed'
-                              ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30'
+                              ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
                               : scan.status === 'running'
-                              ? 'bg-blue-500/15 text-blue-400 border border-blue-500/30 animate-pulse'
-                              : 'bg-red-500/15 text-red-400 border border-red-500/30'
+                              ? 'bg-blue-50 text-blue-700 border border-blue-200 animate-pulse'
+                              : 'bg-red-50 text-red-700 border border-red-200'
                           }`}
                         >
                           {scan.status}
@@ -174,28 +174,28 @@ export function ScansPage() {
                       </td>
                       <td className="py-3 px-4 font-mono font-bold text-sm">
                         <span className={scoreColor}>{score}</span>
-                        <span className="text-[10px] text-slate-500 font-normal"> / 100</span>
+                        <span className="text-[10px] text-slate-400 font-normal"> / 100</span>
                       </td>
-                      <td className="py-3 px-4 font-mono text-blue-400 font-medium">
+                      <td className="py-3 px-4 font-mono text-blue-600 font-medium">
                         {scan.complianceScore !== null ? `${scan.complianceScore}%` : 'N/A'}
                       </td>
                       <td className="py-3 px-4 font-mono">
-                        <span className="text-red-400 font-bold">
+                        <span className="text-red-600 font-bold">
                           {scan.findingsSummary?.critical || 0}C
                         </span>{' '}
                         •{' '}
-                        <span className="text-orange-400 font-semibold">
+                        <span className="text-orange-500 font-semibold">
                           {scan.findingsSummary?.high || 0}H
                         </span>{' '}
                         •{' '}
-                        <span className="text-slate-400">
+                        <span className="text-slate-500">
                           {scan.findingsSummary?.totalActive || 0} total
                         </span>
                       </td>
-                      <td className="py-3 px-4 text-slate-400 font-mono text-[11px]">
+                      <td className="py-3 px-4 text-slate-500 font-mono text-[11px]">
                         {scan.durationMs ? `${(scan.durationMs / 1000).toFixed(1)}s` : '<1s'}
                       </td>
-                      <td className="py-3 px-4 text-slate-400 text-[11px]">
+                      <td className="py-3 px-4 text-slate-500 text-[11px]">
                         {new Date(scan.createdAt).toLocaleString([], {
                           month: 'short',
                           day: 'numeric',
@@ -206,7 +206,7 @@ export function ScansPage() {
                       <td className="py-3 px-4 text-right">
                         <Link
                           to={`/scans/${scan._id}`}
-                          className="text-blue-400 hover:text-blue-300 font-medium inline-flex items-center gap-1"
+                          className="text-blue-600 hover:text-blue-700 font-medium inline-flex items-center gap-1"
                         >
                           Details <ArrowUpRight className="w-3.5 h-3.5" />
                         </Link>
@@ -221,7 +221,7 @@ export function ScansPage() {
 
         {/* Pagination Footer */}
         {pagination.totalPages > 1 && (
-          <div className="px-5 py-3 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400">
+          <div className="px-5 py-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500 bg-slate-50/50">
             <span>
               Page {pagination.page} of {pagination.totalPages} ({pagination.total} scans)
             </span>

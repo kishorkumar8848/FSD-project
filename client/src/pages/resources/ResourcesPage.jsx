@@ -57,17 +57,17 @@ export function ResourcesPage() {
   }, [search, typeFilter, envFilter, accountFilter]);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 pb-12">
       {/* Page Title & Actions */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-200/80">
         <div>
-          <h1 className="text-xl font-bold text-white tracking-tight flex items-center gap-2">
+          <h1 className="text-xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
             Resource Inventory
-            <span className="text-xs bg-slate-800 text-slate-300 px-2 py-0.5 rounded border border-slate-700">
+            <span className="text-xs bg-blue-50 text-blue-600 px-2 py-0.5 rounded font-semibold border border-blue-100">
               {pagination.total} Total
             </span>
           </h1>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs text-slate-500 mt-1">
             Centralized registry of monitored cloud assets, services, and identity configurations
           </p>
         </div>
@@ -80,7 +80,7 @@ export function ResourcesPage() {
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="bg-[#111827] border border-slate-800 p-4 rounded-xl flex flex-wrap items-center gap-3">
+      <div className="bg-white border border-slate-200/80 p-4 rounded-xl shadow-xs flex flex-wrap items-center gap-3">
         <div className="relative flex-1 min-w-[200px]">
           <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
           <input
@@ -88,14 +88,14 @@ export function ResourcesPage() {
             placeholder="Search by resource name or ID..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full bg-slate-900 border border-slate-700/80 rounded-lg pl-9 pr-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
+            className="w-full bg-slate-50 border border-slate-200 rounded-lg pl-9 pr-3 py-1.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:bg-white focus:ring-1 focus:ring-blue-500 focus:border-blue-500 transition-colors"
           />
         </div>
 
         <select
           value={typeFilter}
           onChange={(e) => setTypeFilter(e.target.value)}
-          className="bg-slate-900 border border-slate-700/80 rounded-lg px-3 py-1.5 text-xs text-slate-300 focus:outline-none focus:border-blue-500"
+          className="bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-700 focus:outline-none focus:bg-white focus:ring-1 focus:ring-blue-500 focus:border-blue-500 transition-colors"
         >
           <option value="">All Resource Types</option>
           <option value="storage_bucket">Storage Buckets</option>
@@ -110,7 +110,7 @@ export function ResourcesPage() {
         <select
           value={envFilter}
           onChange={(e) => setEnvFilter(e.target.value)}
-          className="bg-slate-900 border border-slate-700/80 rounded-lg px-3 py-1.5 text-xs text-slate-300 focus:outline-none focus:border-blue-500"
+          className="bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-700 focus:outline-none focus:bg-white focus:ring-1 focus:ring-blue-500 focus:border-blue-500 transition-colors"
         >
           <option value="">All Environments</option>
           <option value="production">Production</option>
@@ -121,7 +121,7 @@ export function ResourcesPage() {
         <select
           value={accountFilter}
           onChange={(e) => setAccountFilter(e.target.value)}
-          className="bg-slate-900 border border-slate-700/80 rounded-lg px-3 py-1.5 text-xs text-slate-300 focus:outline-none focus:border-blue-500"
+          className="bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-700 focus:outline-none focus:bg-white focus:ring-1 focus:ring-blue-500 focus:border-blue-500 transition-colors"
         >
           <option value="">All Accounts</option>
           {accounts.map((a) => (
@@ -133,7 +133,7 @@ export function ResourcesPage() {
       </div>
 
       {/* Resources Table */}
-      <div className="bg-[#111827] border border-slate-800 rounded-xl overflow-hidden shadow-sm">
+      <div className="bg-white border border-slate-200/80 rounded-xl overflow-hidden shadow-xs">
         {loading ? (
           <div className="p-6">
             <LoadingSkeleton rows={6} height="h-10" />
@@ -147,7 +147,7 @@ export function ResourcesPage() {
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-900/60 border-b border-slate-800 uppercase text-[10px] text-slate-400 font-semibold tracking-wider">
+              <thead className="bg-slate-50 border-b border-slate-100 uppercase text-[10px] text-slate-500 font-semibold tracking-wider">
                 <tr>
                   <th className="py-3 px-4">Resource Name</th>
                   <th className="py-3 px-4">Type</th>
@@ -158,24 +158,24 @@ export function ResourcesPage() {
                   <th className="py-3 px-4 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/80">
+              <tbody className="divide-y divide-slate-100">
                 {resources.map((res) => (
-                  <tr key={res._id} className="hover:bg-slate-800/40 transition-colors">
+                  <tr key={res._id} className="hover:bg-slate-50/70 transition-colors">
                     <td className="py-3 px-4">
                       <Link
                         to={`/resources/${res._id}`}
-                        className="font-semibold text-slate-200 hover:text-blue-400 block truncate max-w-xs"
+                        className="font-semibold text-slate-900 hover:text-blue-600 block truncate max-w-xs transition-colors"
                       >
                         {res.name}
                       </Link>
-                      <span className="font-mono text-[11px] text-slate-400">{res.resourceId}</span>
+                      <span className="font-mono text-[11px] text-slate-500">{res.resourceId}</span>
                     </td>
                     <td className="py-3 px-4">
-                      <span className="font-mono text-[11px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded border border-slate-700">
+                      <span className="font-mono text-[11px] bg-slate-50 text-slate-600 px-2 py-0.5 rounded border border-slate-200">
                         {res.type}
                       </span>
                     </td>
-                    <td className="py-3 px-4 text-slate-300">
+                    <td className="py-3 px-4 text-slate-700">
                       {res.account?.name || 'Primary Account'}
                     </td>
                     <td className="py-3 px-4">
@@ -185,16 +185,16 @@ export function ResourcesPage() {
                       <span
                         className={`text-[10px] uppercase font-bold font-mono px-1.5 py-0.5 rounded ${
                           res.criticality === 'critical'
-                            ? 'bg-red-500/15 text-red-400'
+                            ? 'bg-red-50 text-red-700 border border-red-200'
                             : res.criticality === 'high'
-                            ? 'bg-orange-500/15 text-orange-400'
-                            : 'bg-slate-700 text-slate-300'
+                            ? 'bg-orange-50 text-orange-700 border border-orange-200'
+                            : 'bg-slate-100 text-slate-600 border border-slate-200'
                         }`}
                       >
                         {res.criticality}
                       </span>
                     </td>
-                    <td className="py-3 px-4 text-slate-400">
+                    <td className="py-3 px-4 text-slate-500">
                       {res.lastAssessedAt
                         ? new Date(res.lastAssessedAt).toLocaleDateString()
                         : 'Pending Scan'}
@@ -202,7 +202,7 @@ export function ResourcesPage() {
                     <td className="py-3 px-4 text-right">
                       <Link
                         to={`/resources/${res._id}`}
-                        className="text-blue-400 hover:text-blue-300 inline-flex items-center gap-1 font-medium"
+                        className="text-blue-600 hover:text-blue-700 inline-flex items-center gap-1 font-medium"
                       >
                         Inspect <ArrowUpRight className="w-3.5 h-3.5" />
                       </Link>
@@ -216,7 +216,7 @@ export function ResourcesPage() {
 
         {/* Pagination Footer */}
         {pagination.totalPages > 1 && (
-          <div className="px-5 py-3 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400">
+          <div className="px-5 py-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500 bg-slate-50/50">
             <span>
               Page {pagination.page} of {pagination.totalPages} ({pagination.total} items)
             </span>

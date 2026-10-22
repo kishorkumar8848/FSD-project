@@ -55,18 +55,18 @@ export function SettingsPage() {
 
   return (
     <div className="space-y-6 pb-12">
-      <div className="pb-2 border-b border-slate-800">
-        <h1 className="text-xl font-bold text-white tracking-tight flex items-center gap-2">
+      <div className="pb-2 border-b border-slate-200/80">
+        <h1 className="text-xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
           Platform & Organization Settings
         </h1>
-        <p className="text-xs text-slate-400 mt-1">
+        <p className="text-xs text-slate-500 mt-1">
           Tenant governance configuration, alert thresholds, and security profile parameters
         </p>
       </div>
 
       {savedMsg && (
-        <div className="p-3 bg-emerald-950/40 border border-emerald-800/60 rounded-xl text-emerald-300 text-xs flex items-center gap-2">
-          <CheckCircle2 className="w-4 h-4 flex-shrink-0 text-emerald-400" />
+        <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-800 text-xs flex items-center gap-2">
+          <CheckCircle2 className="w-4 h-4 flex-shrink-0 text-emerald-600" />
           <span>Organization settings saved successfully.</span>
         </div>
       )}
@@ -77,24 +77,24 @@ export function SettingsPage() {
           <Card title="Organization Profile" subtitle="Multi-tenant context and scan governance">
             <form onSubmit={handleSave} className="space-y-4 text-xs">
               <div>
-                <label className="block font-medium text-slate-300 mb-1">Organization Name</label>
+                <label className="block font-semibold text-slate-700 mb-1">Organization Name</label>
                 <input
                   type="text"
                   required
                   value={orgName}
                   onChange={(e) => setOrgName(e.target.value)}
-                  className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
+                  className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>
 
               <div>
-                <label className="block font-medium text-slate-300 mb-1">
+                <label className="block font-semibold text-slate-700 mb-1">
                   Default Alert Notification Threshold
                 </label>
                 <select
                   value={alertThreshold}
                   onChange={(e) => setAlertThreshold(e.target.value)}
-                  className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
+                  className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 >
                   <option value="critical">Critical Severities Only</option>
                   <option value="high">High and Critical Severities</option>
@@ -107,7 +107,7 @@ export function SettingsPage() {
               </div>
 
               <div>
-                <label className="block font-medium text-slate-300 mb-1">
+                <label className="block font-semibold text-slate-700 mb-1">
                   Snapshot Retention Window (Days)
                 </label>
                 <input
@@ -116,7 +116,7 @@ export function SettingsPage() {
                   max={365}
                   value={retentionDays}
                   onChange={(e) => setRetentionDays(e.target.value)}
-                  className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
+                  className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>
 
@@ -133,31 +133,31 @@ export function SettingsPage() {
         <div className="space-y-6">
           <Card title="User Session Profile" subtitle="Authenticated identity details">
             <div className="space-y-3 text-xs">
-              <div className="flex items-center gap-3 pb-3 border-b border-slate-800">
-                <div className="w-10 h-10 rounded-full bg-blue-600/20 border border-blue-500/40 flex items-center justify-center text-blue-400 font-bold text-sm">
-                  {user?.name?.charAt(0) || 'U'}
+              <div className="flex items-center gap-3 pb-3 border-b border-slate-100">
+                <div className="w-10 h-10 rounded-full bg-[#1d68f0] flex items-center justify-center text-white font-bold text-sm shadow-xs">
+                  {user?.name?.charAt(0) || 'A'}
                 </div>
                 <div>
-                  <h4 className="font-semibold text-slate-100">{user?.name}</h4>
-                  <span className="text-[11px] text-slate-400">{user?.email}</span>
+                  <h4 className="font-semibold text-slate-900">{user?.name}</h4>
+                  <span className="text-[11px] text-slate-500">{user?.email}</span>
                 </div>
               </div>
 
               <div>
                 <span className="text-[11px] text-slate-500 block">Assigned Role</span>
-                <span className="font-mono text-xs uppercase text-blue-400 font-bold">
+                <span className="font-mono text-xs uppercase text-purple-700 font-bold bg-purple-50 border border-purple-200 px-1.5 py-0.5 rounded">
                   {user?.role}
                 </span>
               </div>
 
               <div>
                 <span className="text-[11px] text-slate-500 block">Organization</span>
-                <span className="text-slate-300">{organization?.name}</span>
+                <span className="text-slate-800 font-medium">{organization?.name}</span>
               </div>
 
               <div>
                 <span className="text-[11px] text-slate-500 block">Session Token Expiry</span>
-                <span className="text-slate-400 font-mono text-[11px]">24 hours (JWT with HttpOnly session)</span>
+                <span className="text-slate-600 font-mono text-[11px]">24 hours (JWT with Authorization header)</span>
               </div>
             </div>
           </Card>

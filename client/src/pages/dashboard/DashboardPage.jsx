@@ -67,17 +67,17 @@ export function DashboardPage() {
     return (
       <div className="space-y-6">
         <div className="flex justify-between items-center">
-          <div className="h-8 bg-slate-800 rounded w-48 animate-pulse" />
-          <div className="h-8 bg-slate-800 rounded w-28 animate-pulse" />
+          <div className="h-8 bg-slate-200 rounded w-48 animate-pulse" />
+          <div className="h-8 bg-slate-200 rounded w-28 animate-pulse" />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           {Array(4).fill(0).map((_, i) => (
-            <div key={i} className="h-28 bg-slate-800/60 rounded-xl animate-pulse" />
+            <div key={i} className="h-28 bg-white border border-slate-200 rounded-xl animate-pulse shadow-xs" />
           ))}
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="h-64 bg-slate-800/60 rounded-xl animate-pulse" />
-          <div className="h-64 bg-slate-800/60 rounded-xl animate-pulse" />
+          <div className="h-64 bg-white border border-slate-200 rounded-xl animate-pulse shadow-xs" />
+          <div className="h-64 bg-white border border-slate-200 rounded-xl animate-pulse shadow-xs" />
         </div>
       </div>
     );
@@ -92,34 +92,34 @@ export function DashboardPage() {
 
   const postureScore = summaryCards.postureScore ?? 100;
   const postureColor =
-    postureScore >= 80 ? 'text-emerald-400' : postureScore >= 50 ? 'text-amber-400' : 'text-red-400';
+    postureScore >= 80 ? 'text-emerald-600' : postureScore >= 50 ? 'text-amber-600' : 'text-red-600';
 
   const severityChartColors = {
-    critical: '#DC2626',
-    high: '#EA580C',
-    medium: '#D97706',
-    low: '#2563EB',
-    info: '#64748B',
+    critical: '#EF4444',
+    high: '#F97316',
+    medium: '#F59E0B',
+    low: '#3B82F6',
+    info: '#94A3B8',
   };
 
   const compliancePieColors = {
-    pass: '#16A34A',
-    fail: '#DC2626',
+    pass: '#10B981',
+    fail: '#EF4444',
     not_applicable: '#64748B',
   };
 
   return (
     <div className="space-y-6 pb-12">
       {/* Header & Quick Action Toolbar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-800/80">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-200/80">
         <div>
-          <h1 className="text-xl font-bold text-white tracking-tight flex items-center gap-2">
+          <h1 className="text-xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
             Security Posture Overview
-            <span className="text-xs bg-slate-800 text-slate-300 font-normal px-2 py-0.5 rounded border border-slate-700">
+            <span className="text-xs bg-blue-50 text-blue-600 font-medium px-2.5 py-0.5 rounded-full border border-blue-100">
               Live State
             </span>
           </h1>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs text-slate-500 mt-1">
             Real-time security configuration compliance and cloud risk posture
           </p>
         </div>
@@ -156,21 +156,21 @@ export function DashboardPage() {
       {/* Primary KPI Metrics Grid */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {/* Posture Score Gauge Card */}
-        <div className="bg-[#111827] border border-slate-800 rounded-xl p-5 relative overflow-hidden flex flex-col justify-between">
-          <div className="flex items-center justify-between text-xs text-slate-400">
+        <div className="bg-white border border-slate-200/80 rounded-xl p-5 shadow-xs relative overflow-hidden flex flex-col justify-between hover:border-slate-300 transition-colors">
+          <div className="flex items-center justify-between text-xs text-slate-500">
             <span className="font-semibold uppercase tracking-wider text-[10px]">Security Posture</span>
-            <Activity className="w-4 h-4 text-blue-400" />
+            <Activity className="w-4 h-4 text-blue-600" />
           </div>
           <div className="my-2">
             <div className={`text-3xl font-extrabold tracking-tight ${postureColor}`}>
               {postureScore}
               <span className="text-sm font-normal text-slate-400"> / 100</span>
             </div>
-            <div className="text-[11px] text-slate-400 mt-0.5">
+            <div className="text-[11px] text-slate-500 mt-0.5">
               100 base - active finding penalties
             </div>
           </div>
-          <div className="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden mt-2">
+          <div className="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden mt-2">
             <div
               className={`h-full transition-all duration-500 ${
                 postureScore >= 80 ? 'bg-emerald-500' : postureScore >= 50 ? 'bg-amber-500' : 'bg-red-500'
@@ -181,69 +181,69 @@ export function DashboardPage() {
         </div>
 
         {/* NIST Compliance Score */}
-        <div className="bg-[#111827] border border-slate-800 rounded-xl p-5 flex flex-col justify-between">
-          <div className="flex items-center justify-between text-xs text-slate-400">
+        <div className="bg-white border border-slate-200/80 rounded-xl p-5 shadow-xs flex flex-col justify-between hover:border-slate-300 transition-colors">
+          <div className="flex items-center justify-between text-xs text-slate-500">
             <span className="font-semibold uppercase tracking-wider text-[10px]">NIST CSF Compliance</span>
-            <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+            <CheckCircle2 className="w-4 h-4 text-emerald-500" />
           </div>
           <div className="my-2">
-            <div className="text-3xl font-extrabold text-blue-400 tracking-tight">
+            <div className="text-3xl font-extrabold text-blue-600 tracking-tight">
               {summaryCards.complianceScore !== null ? `${summaryCards.complianceScore}%` : 'N/A'}
             </div>
-            <div className="text-[11px] text-slate-400 mt-0.5">
+            <div className="text-[11px] text-slate-500 mt-0.5">
               NIST Cybersecurity Framework 2.0
             </div>
           </div>
           <Link
             to="/compliance"
-            className="text-[11px] text-blue-400 hover:text-blue-300 flex items-center gap-1 font-medium pt-1"
+            className="text-[11px] text-blue-600 hover:text-blue-700 flex items-center gap-1 font-medium pt-1"
           >
             Inspect framework controls <ArrowUpRight className="w-3 h-3" />
           </Link>
         </div>
 
         {/* Critical & High Findings */}
-        <div className="bg-[#111827] border border-slate-800 rounded-xl p-5 flex flex-col justify-between">
-          <div className="flex items-center justify-between text-xs text-slate-400">
+        <div className="bg-white border border-slate-200/80 rounded-xl p-5 shadow-xs flex flex-col justify-between hover:border-slate-300 transition-colors">
+          <div className="flex items-center justify-between text-xs text-slate-500">
             <span className="font-semibold uppercase tracking-wider text-[10px]">Priority Findings</span>
-            <ShieldAlert className="w-4 h-4 text-red-400" />
+            <ShieldAlert className="w-4 h-4 text-red-500" />
           </div>
           <div className="my-2">
-            <div className="text-3xl font-extrabold text-white tracking-tight flex items-baseline gap-2">
-              <span className="text-red-400">{summaryCards.criticalFindings || 0}</span>
-              <span className="text-xs text-slate-400 font-normal">critical</span>
-              <span className="text-orange-400 text-2xl font-bold ml-1">{summaryCards.highFindings || 0}</span>
-              <span className="text-xs text-slate-400 font-normal">high</span>
+            <div className="text-3xl font-extrabold text-slate-900 tracking-tight flex items-baseline gap-2">
+              <span className="text-red-600">{summaryCards.criticalFindings || 0}</span>
+              <span className="text-xs text-slate-500 font-normal">critical</span>
+              <span className="text-orange-500 text-2xl font-bold ml-1">{summaryCards.highFindings || 0}</span>
+              <span className="text-xs text-slate-500 font-normal">high</span>
             </div>
-            <div className="text-[11px] text-slate-400 mt-0.5">
+            <div className="text-[11px] text-slate-500 mt-0.5">
               {summaryCards.totalActiveFindings || 0} total active risk findings
             </div>
           </div>
           <Link
             to="/findings?severity=critical"
-            className="text-[11px] text-red-400 hover:text-red-300 flex items-center gap-1 font-medium pt-1"
+            className="text-[11px] text-red-600 hover:text-red-700 flex items-center gap-1 font-medium pt-1"
           >
             Review critical issues <ArrowUpRight className="w-3 h-3" />
           </Link>
         </div>
 
         {/* Cloud Assets Assessed */}
-        <div className="bg-[#111827] border border-slate-800 rounded-xl p-5 flex flex-col justify-between">
-          <div className="flex items-center justify-between text-xs text-slate-400">
+        <div className="bg-white border border-slate-200/80 rounded-xl p-5 shadow-xs flex flex-col justify-between hover:border-slate-300 transition-colors">
+          <div className="flex items-center justify-between text-xs text-slate-500">
             <span className="font-semibold uppercase tracking-wider text-[10px]">Monitored Assets</span>
-            <Server className="w-4 h-4 text-purple-400" />
+            <Server className="w-4 h-4 text-purple-600" />
           </div>
           <div className="my-2">
-            <div className="text-3xl font-extrabold text-white tracking-tight">
+            <div className="text-3xl font-extrabold text-slate-900 tracking-tight">
               {summaryCards.totalResources || 0}
             </div>
-            <div className="text-[11px] text-slate-400 mt-0.5">
+            <div className="text-[11px] text-slate-500 mt-0.5">
               Across {summaryCards.totalAccounts || 0} cloud accounts
             </div>
           </div>
           <Link
             to="/resources"
-            className="text-[11px] text-purple-400 hover:text-purple-300 flex items-center gap-1 font-medium pt-1"
+            className="text-[11px] text-purple-600 hover:text-purple-700 flex items-center gap-1 font-medium pt-1"
           >
             View resource inventory <ArrowUpRight className="w-3 h-3" />
           </Link>
@@ -257,12 +257,19 @@ export function DashboardPage() {
           <div className="h-64 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={charts.findingsBySeverity || []} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1E293B" vertical={false} />
-                <XAxis dataKey="severity" stroke="#64748B" fontSize={11} tickFormatter={(v) => v.toUpperCase()} />
-                <YAxis stroke="#64748B" fontSize={11} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#F1F5F9" vertical={false} />
+                <XAxis dataKey="severity" stroke="#94A3B8" fontSize={11} tickFormatter={(v) => v.toUpperCase()} />
+                <YAxis stroke="#94A3B8" fontSize={11} />
                 <Tooltip
-                  contentStyle={{ backgroundColor: '#111827', borderColor: '#334155', borderRadius: '8px', fontSize: '12px' }}
-                  labelStyle={{ color: '#F8FAFC', fontWeight: 'bold' }}
+                  contentStyle={{
+                    backgroundColor: '#FFFFFF',
+                    borderColor: '#E2E8F0',
+                    borderRadius: '8px',
+                    fontSize: '12px',
+                    color: '#0F172A',
+                    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.08)'
+                  }}
+                  labelStyle={{ color: '#0F172A', fontWeight: 'bold' }}
                 />
                 <Bar dataKey="count" radius={[4, 4, 0, 0]}>
                   {(charts.findingsBySeverity || []).map((entry, index) => (
@@ -295,7 +302,14 @@ export function DashboardPage() {
                     ))}
                   </Pie>
                   <Tooltip
-                    contentStyle={{ backgroundColor: '#111827', borderColor: '#334155', borderRadius: '8px', fontSize: '12px' }}
+                    contentStyle={{
+                      backgroundColor: '#FFFFFF',
+                      borderColor: '#E2E8F0',
+                      borderRadius: '8px',
+                      fontSize: '12px',
+                      color: '#0F172A',
+                      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.08)'
+                    }}
                   />
                 </PieChart>
               </ResponsiveContainer>
@@ -303,14 +317,14 @@ export function DashboardPage() {
               <div className="text-xs text-slate-400">No scan results to display yet.</div>
             )}
           </div>
-          <div className="flex justify-center gap-6 text-xs text-slate-300 mt-2">
-            <span className="flex items-center gap-1.5">
+          <div className="flex justify-center gap-6 text-xs text-slate-600 mt-2">
+            <span className="flex items-center gap-1.5 font-medium">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" /> Pass
             </span>
-            <span className="flex items-center gap-1.5">
+            <span className="flex items-center gap-1.5 font-medium">
               <span className="w-2.5 h-2.5 rounded-full bg-red-500" /> Fail
             </span>
-            <span className="flex items-center gap-1.5">
+            <span className="flex items-center gap-1.5 font-medium">
               <span className="w-2.5 h-2.5 rounded-full bg-slate-500" /> N/A
             </span>
           </div>
@@ -326,13 +340,20 @@ export function DashboardPage() {
               {charts.scanHistory?.length > 0 ? (
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart data={charts.scanHistory} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#1E293B" vertical={false} />
-                    <XAxis dataKey="date" stroke="#64748B" fontSize={11} />
-                    <YAxis domain={[0, 100]} stroke="#64748B" fontSize={11} />
+                    <CartesianGrid strokeDasharray="3 3" stroke="#F1F5F9" vertical={false} />
+                    <XAxis dataKey="date" stroke="#94A3B8" fontSize={11} />
+                    <YAxis domain={[0, 100]} stroke="#94A3B8" fontSize={11} />
                     <Tooltip
-                      contentStyle={{ backgroundColor: '#111827', borderColor: '#334155', borderRadius: '8px', fontSize: '12px' }}
+                      contentStyle={{
+                        backgroundColor: '#FFFFFF',
+                        borderColor: '#E2E8F0',
+                        borderRadius: '8px',
+                        fontSize: '12px',
+                        color: '#0F172A',
+                        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.08)'
+                      }}
                     />
-                    <Line type="monotone" dataKey="postureScore" stroke="#3B82F6" strokeWidth={2.5} dot={{ fill: '#3B82F6', r: 4 }} name="Posture Score" />
+                    <Line type="monotone" dataKey="postureScore" stroke="#1D68F0" strokeWidth={2.5} dot={{ fill: '#1D68F0', r: 4 }} name="Posture Score" />
                     <Line type="monotone" dataKey="complianceScore" stroke="#10B981" strokeWidth={2} strokeDasharray="4 4" dot={false} name="Compliance %" />
                   </LineChart>
                 </ResponsiveContainer>
@@ -353,22 +374,22 @@ export function DashboardPage() {
               { label: 'In Remediation', count: charts.remediationProgress?.in_progress || 0, color: 'bg-amber-500' },
               { label: 'Verified Resolved', count: charts.remediationProgress?.resolved || 0, color: 'bg-emerald-500' },
               { label: 'Risk Accepted (Exception)', count: charts.remediationProgress?.accepted_risk || 0, color: 'bg-purple-500' },
-              { label: 'False Positive Suppressed', count: charts.remediationProgress?.false_positive || 0, color: 'bg-slate-500' },
+              { label: 'False Positive Suppressed', count: charts.remediationProgress?.false_positive || 0, color: 'bg-slate-400' },
             ].map((st, i) => (
               <div key={i} className="flex items-center justify-between text-xs">
-                <span className="flex items-center gap-2 text-slate-300">
+                <span className="flex items-center gap-2 text-slate-600 font-medium">
                   <span className={`w-2 h-2 rounded-full ${st.color}`} />
                   {st.label}
                 </span>
-                <span className="font-mono font-semibold text-slate-100">{st.count}</span>
+                <span className="font-mono font-semibold text-slate-900">{st.count}</span>
               </div>
             ))}
           </div>
 
-          <div className="mt-8 pt-4 border-t border-slate-800">
+          <div className="mt-8 pt-4 border-t border-slate-100">
             <Link
               to="/reports"
-              className="w-full flex items-center justify-center gap-2 p-2 rounded-lg bg-blue-600/10 hover:bg-blue-600/20 border border-blue-500/30 text-blue-400 text-xs font-medium transition-colors"
+              className="w-full flex items-center justify-center gap-2 p-2 rounded-lg bg-blue-50 hover:bg-blue-100 border border-blue-200 text-blue-600 text-xs font-semibold transition-colors shadow-2xs"
             >
               <FileText className="w-3.5 h-3.5" />
               Generate Executive PDF Report
@@ -384,12 +405,12 @@ export function DashboardPage() {
           title="Most Frequently Failing Rules"
           subtitle="Security baselines with highest violation frequency"
           action={
-            <Link to="/rules" className="text-xs text-blue-400 hover:text-blue-300">
+            <Link to="/rules" className="text-xs text-blue-600 hover:text-blue-700 font-medium">
               View all rules
             </Link>
           }
         >
-          <div className="divide-y divide-slate-800">
+          <div className="divide-y divide-slate-100">
             {topFailingRules.length === 0 ? (
               <div className="py-6 text-center text-xs text-slate-400">No failing rules recorded.</div>
             ) : (
@@ -398,12 +419,12 @@ export function DashboardPage() {
                   <div className="flex items-center gap-3">
                     <SeverityBadge severity={rule.severity} />
                     <div>
-                      <div className="text-xs font-semibold text-slate-200">{rule.ruleId}</div>
-                      <div className="text-[11px] text-slate-400 max-w-sm truncate">{rule.ruleName}</div>
+                      <div className="text-xs font-semibold text-slate-900">{rule.ruleId}</div>
+                      <div className="text-[11px] text-slate-500 max-w-sm truncate">{rule.ruleName}</div>
                     </div>
                   </div>
                   <div className="text-right">
-                    <span className="text-xs font-mono font-bold text-red-400">{rule.count}</span>
+                    <span className="text-xs font-mono font-bold text-red-600">{rule.count}</span>
                     <span className="text-[10px] text-slate-400 block">violations</span>
                   </div>
                 </div>
@@ -417,25 +438,25 @@ export function DashboardPage() {
           title="Highest Risk Resources"
           subtitle="Cloud assets with highest cumulative vulnerability exposure"
           action={
-            <Link to="/resources" className="text-xs text-blue-400 hover:text-blue-300">
+            <Link to="/resources" className="text-xs text-blue-600 hover:text-blue-700 font-medium">
               View all resources
             </Link>
           }
         >
-          <div className="divide-y divide-slate-800">
+          <div className="divide-y divide-slate-100">
             {highestRiskResources.length === 0 ? (
               <div className="py-6 text-center text-xs text-slate-400">No high risk assets identified.</div>
             ) : (
               highestRiskResources.map((res) => (
                 <div key={res.resourceId} className="py-3 flex items-center justify-between">
                   <div>
-                    <div className="text-xs font-semibold text-slate-200">{res.resourceName}</div>
-                    <div className="text-[11px] font-mono text-slate-400">
+                    <div className="text-xs font-semibold text-slate-900">{res.resourceName}</div>
+                    <div className="text-[11px] font-mono text-slate-500">
                       {res.resourceId} • {res.resourceType}
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="text-xs font-bold text-orange-400 font-mono">
+                    <div className="text-xs font-bold text-orange-600 font-mono">
                       Risk: {res.totalRiskScore}
                     </div>
                     <div className="text-[10px] text-slate-400">

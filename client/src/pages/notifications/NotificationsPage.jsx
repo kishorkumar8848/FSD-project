@@ -38,12 +38,12 @@ export function NotificationsPage() {
 
   return (
     <div className="space-y-6 pb-12">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-200/80">
         <div>
-          <h1 className="text-xl font-bold text-white tracking-tight flex items-center gap-2">
+          <h1 className="text-xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
             Notification Center
           </h1>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs text-slate-500 mt-1">
             Real-time security assessment alerts, critical findings, and system notifications
           </p>
         </div>
@@ -68,18 +68,18 @@ export function NotificationsPage() {
               key={n._id}
               className={`p-4 rounded-xl border transition-all flex items-start justify-between gap-4 ${
                 n.isRead
-                  ? 'bg-[#111827]/60 border-slate-800 text-slate-400'
-                  : 'bg-[#111827] border-blue-900/60 shadow-md text-slate-200'
+                  ? 'bg-slate-50/70 border-slate-200 text-slate-500'
+                  : 'bg-white border-blue-200 shadow-xs text-slate-800'
               }`}
             >
               <div className="flex items-start gap-3">
                 <div
-                  className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${
+                  className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 border ${
                     n.severity === 'critical'
-                      ? 'bg-red-500/20 text-red-400'
+                      ? 'bg-red-50 text-red-600 border-red-200'
                       : n.severity === 'high'
-                      ? 'bg-orange-500/20 text-orange-400'
-                      : 'bg-blue-500/20 text-blue-400'
+                      ? 'bg-orange-50 text-orange-600 border-orange-200'
+                      : 'bg-blue-50 text-blue-600 border-blue-200'
                   }`}
                 >
                   {n.severity === 'critical' ? (
@@ -89,17 +89,17 @@ export function NotificationsPage() {
                   )}
                 </div>
                 <div>
-                  <h4 className="text-xs font-semibold text-slate-100 flex items-center gap-2">
+                  <h4 className="text-xs font-semibold text-slate-900 flex items-center gap-2">
                     {n.title}
                     {!n.isRead && (
-                      <span className="w-1.5 h-1.5 rounded-full bg-blue-500 inline-block" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-blue-600 inline-block" />
                     )}
                   </h4>
-                  <p className="text-xs text-slate-300 mt-0.5 leading-relaxed">{n.message}</p>
+                  <p className="text-xs text-slate-600 mt-0.5 leading-relaxed">{n.message}</p>
                 </div>
               </div>
 
-              <span className="text-[11px] text-slate-500 flex-shrink-0">
+              <span className="text-[11px] text-slate-400 flex-shrink-0">
                 {new Date(n.createdAt).toLocaleDateString([], {
                   month: 'short',
                   day: 'numeric',

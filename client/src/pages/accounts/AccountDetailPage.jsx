@@ -56,10 +56,10 @@ export function AccountDetailPage() {
   };
 
   if (loading) return <LoadingSkeleton rows={6} height="h-20" />;
-  if (!account) return <div className="text-center py-12 text-slate-400">Account not found.</div>;
+  if (!account) return <div className="text-center py-12 text-slate-500">Account not found.</div>;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 pb-12">
       <Breadcrumbs
         items={[
           { label: 'Cloud Accounts', to: '/accounts' },
@@ -68,13 +68,13 @@ export function AccountDetailPage() {
       />
 
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-200/80">
         <div>
           <div className="flex items-center gap-3">
-            <h1 className="text-xl font-bold text-white tracking-tight">{account.name}</h1>
+            <h1 className="text-xl font-bold text-slate-900 tracking-tight">{account.name}</h1>
             <EnvironmentBadge env={account.environment} />
           </div>
-          <div className="text-xs font-mono text-slate-400 mt-1">
+          <div className="text-xs font-mono text-slate-500 mt-1">
             Account ID: {account.accountId} • Region: {account.region} • Mode: {account.connectionMode}
           </div>
         </div>
@@ -91,40 +91,40 @@ export function AccountDetailPage() {
       </div>
 
       {scanMessage && (
-        <div className="p-3 bg-emerald-950/40 border border-emerald-800/60 rounded-xl text-emerald-400 text-xs flex items-center gap-2">
-          <CheckCircle2 className="w-4 h-4 flex-shrink-0" />
+        <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-700 text-xs flex items-center gap-2">
+          <CheckCircle2 className="w-4 h-4 flex-shrink-0 text-emerald-600" />
           <span>{scanMessage}</span>
         </div>
       )}
 
       {/* Overview Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-[#111827] border border-slate-800 rounded-xl p-5">
-          <span className="text-[10px] text-slate-400 uppercase tracking-wider block">Security Posture Score</span>
-          <span className="text-2xl font-bold font-mono text-blue-400 mt-1 block">
+        <div className="bg-white border border-slate-200/80 rounded-xl p-5 shadow-xs">
+          <span className="text-[10px] text-slate-500 uppercase tracking-wider block font-semibold">Security Posture Score</span>
+          <span className="text-2xl font-bold font-mono text-blue-600 mt-1 block">
             {account.postureScore ?? 100} / 100
           </span>
-          <span className="text-[11px] text-slate-400 mt-1 block">
+          <span className="text-[11px] text-slate-500 mt-1 block">
             Calculated from active findings
           </span>
         </div>
 
-        <div className="bg-[#111827] border border-slate-800 rounded-xl p-5">
-          <span className="text-[10px] text-slate-400 uppercase tracking-wider block">Total Inventoried Resources</span>
-          <span className="text-2xl font-bold font-mono text-white mt-1 block">
+        <div className="bg-white border border-slate-200/80 rounded-xl p-5 shadow-xs">
+          <span className="text-[10px] text-slate-500 uppercase tracking-wider block font-semibold">Total Inventoried Resources</span>
+          <span className="text-2xl font-bold font-mono text-slate-900 mt-1 block">
             {resources.length}
           </span>
-          <span className="text-[11px] text-slate-400 mt-1 block">
+          <span className="text-[11px] text-slate-500 mt-1 block">
             Storage, DBs, IAM, VMs, Logs
           </span>
         </div>
 
-        <div className="bg-[#111827] border border-slate-800 rounded-xl p-5">
-          <span className="text-[10px] text-slate-400 uppercase tracking-wider block">Active Risk Findings</span>
-          <span className="text-2xl font-bold font-mono text-red-400 mt-1 block">
+        <div className="bg-white border border-slate-200/80 rounded-xl p-5 shadow-xs">
+          <span className="text-[10px] text-slate-500 uppercase tracking-wider block font-semibold">Active Risk Findings</span>
+          <span className="text-2xl font-bold font-mono text-red-600 mt-1 block">
             {findings.filter((f) => f.status === 'open' || f.status === 'in_progress').length}
           </span>
-          <span className="text-[11px] text-slate-400 mt-1 block">
+          <span className="text-[11px] text-slate-500 mt-1 block">
             Across rule evaluation checks
           </span>
         </div>
@@ -137,7 +137,7 @@ export function AccountDetailPage() {
           title={`Inventoried Resources (${resources.length})`}
           subtitle="Configurations assessed within this account perimeter"
         >
-          <div className="divide-y divide-slate-800 max-h-96 overflow-y-auto">
+          <div className="divide-y divide-slate-100 max-h-96 overflow-y-auto">
             {resources.length === 0 ? (
               <div className="py-6 text-center text-xs text-slate-400">No resources linked to this account.</div>
             ) : (
@@ -146,15 +146,15 @@ export function AccountDetailPage() {
                   <div>
                     <Link
                       to={`/resources/${res._id}`}
-                      className="text-xs font-semibold text-slate-200 hover:text-blue-400"
+                      className="text-xs font-semibold text-slate-900 hover:text-blue-600 transition-colors"
                     >
                       {res.name}
                     </Link>
-                    <div className="text-[11px] font-mono text-slate-400">
+                    <div className="text-[11px] font-mono text-slate-500">
                       {res.resourceId} • {res.type}
                     </div>
                   </div>
-                  <span className="text-[10px] font-mono uppercase bg-slate-800 text-slate-300 px-2 py-0.5 rounded border border-slate-700">
+                  <span className="text-[10px] font-mono uppercase bg-slate-50 text-slate-600 px-2 py-0.5 rounded border border-slate-200">
                     {res.criticality}
                   </span>
                 </div>
@@ -168,7 +168,7 @@ export function AccountDetailPage() {
           title={`Detected Findings (${findings.length})`}
           subtitle="Identified misconfigurations and compliance gaps"
         >
-          <div className="divide-y divide-slate-800 max-h-96 overflow-y-auto">
+          <div className="divide-y divide-slate-100 max-h-96 overflow-y-auto">
             {findings.length === 0 ? (
               <div className="py-6 text-center text-xs text-slate-400">No findings detected for this account.</div>
             ) : (
@@ -179,11 +179,11 @@ export function AccountDetailPage() {
                     <div>
                       <Link
                         to={`/findings/${f._id}`}
-                        className="text-xs font-medium text-slate-200 hover:text-blue-400"
+                        className="text-xs font-medium text-slate-900 hover:text-blue-600 transition-colors"
                       >
                         {f.title}
                       </Link>
-                      <div className="text-[11px] text-slate-400 font-mono">
+                      <div className="text-[11px] text-slate-500 font-mono">
                         {f.ruleId} • {f.resourceName}
                       </div>
                     </div>

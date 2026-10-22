@@ -40,12 +40,12 @@ export function ResourceDetailPage() {
   }, [id]);
 
   if (loading) return <LoadingSkeleton rows={6} height="h-20" />;
-  if (!resource) return <div className="text-center py-12 text-slate-400">Resource not found.</div>;
+  if (!resource) return <div className="text-center py-12 text-slate-500">Resource not found.</div>;
 
   const rawTags = resource.tags instanceof Map ? Object.fromEntries(resource.tags) : (resource.tags || {});
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 pb-12">
       <Breadcrumbs
         items={[
           { label: 'Resources', to: '/resources' },
@@ -54,16 +54,16 @@ export function ResourceDetailPage() {
       />
 
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-200/80">
         <div>
           <div className="flex items-center gap-3">
-            <h1 className="text-xl font-bold text-white tracking-tight">{resource.name}</h1>
-            <span className="font-mono text-xs bg-slate-800 text-slate-300 px-2 py-0.5 rounded border border-slate-700">
+            <h1 className="text-xl font-bold text-slate-900 tracking-tight">{resource.name}</h1>
+            <span className="font-mono text-xs bg-slate-50 text-slate-700 px-2 py-0.5 rounded border border-slate-200">
               {resource.type}
             </span>
             <EnvironmentBadge env={resource.environment} />
           </div>
-          <div className="text-xs font-mono text-slate-400 mt-1">
+          <div className="text-xs font-mono text-slate-500 mt-1">
             Resource ID: {resource.resourceId} • Account: {resource.account?.name} • Region: {resource.region}
           </div>
         </div>
@@ -84,7 +84,7 @@ export function ResourceDetailPage() {
             subtitle="Raw evaluated properties extracted for security analysis"
             action={<Code2 className="w-4 h-4 text-slate-400" />}
           >
-            <div className="bg-[#090D16] border border-slate-800 rounded-lg p-4 font-mono text-xs text-slate-300 overflow-x-auto max-h-[420px]">
+            <div className="bg-slate-900 border border-slate-800 rounded-lg p-4 font-mono text-xs text-slate-200 overflow-x-auto max-h-[420px] shadow-inner">
               <pre>{JSON.stringify(resource.configuration, null, 2)}</pre>
             </div>
           </Card>
@@ -94,9 +94,9 @@ export function ResourceDetailPage() {
             title={`Active Findings on this Asset (${findings.length})`}
             subtitle="Rule violations identified by deterministic evaluation engine"
           >
-            <div className="divide-y divide-slate-800">
+            <div className="divide-y divide-slate-100">
               {findings.length === 0 ? (
-                <div className="py-6 text-center text-xs text-emerald-400 font-medium">
+                <div className="py-6 text-center text-xs text-emerald-600 font-medium">
                   ✓ No active security findings. Asset conforms to defined baseline rules.
                 </div>
               ) : (
@@ -107,11 +107,11 @@ export function ResourceDetailPage() {
                       <div>
                         <Link
                           to={`/findings/${f._id}`}
-                          className="text-xs font-semibold text-slate-200 hover:text-blue-400 block"
+                          className="text-xs font-semibold text-slate-900 hover:text-blue-600 transition-colors block"
                         >
                           {f.title}
                         </Link>
-                        <p className="text-[11px] text-slate-400 mt-0.5 max-w-lg">
+                        <p className="text-[11px] text-slate-500 mt-0.5 max-w-lg">
                           {f.evidence?.message || f.description}
                         </p>
                       </div>
@@ -135,10 +135,10 @@ export function ResourceDetailPage() {
                 Object.entries(rawTags).map(([k, v]) => (
                   <div
                     key={k}
-                    className="p-2 bg-slate-900 border border-slate-800 rounded text-xs flex justify-between"
+                    className="p-2 bg-slate-50 border border-slate-200 rounded text-xs flex justify-between"
                   >
-                    <span className="font-mono text-slate-400">{k}:</span>
-                    <span className="font-medium text-slate-200">{v}</span>
+                    <span className="font-mono text-slate-500">{k}:</span>
+                    <span className="font-medium text-slate-800">{v}</span>
                   </div>
                 ))
               )}
@@ -152,14 +152,14 @@ export function ResourceDetailPage() {
                 <div className="text-xs text-slate-400">No snapshot history recorded yet.</div>
               ) : (
                 history.map((snap) => (
-                  <div key={snap._id} className="p-3 bg-slate-900/60 border border-slate-800 rounded-lg text-xs">
-                    <div className="flex items-center justify-between text-slate-300 font-medium mb-1">
+                  <div key={snap._id} className="p-3 bg-slate-50 border border-slate-200 rounded-lg text-xs">
+                    <div className="flex items-center justify-between text-slate-700 font-medium mb-1">
                       <span>Scan {snap.scan?._id?.slice(-6) || 'N/A'}</span>
-                      <span className="font-mono text-blue-400">
+                      <span className="font-mono text-blue-600 font-bold">
                         Score: {snap.scan?.postureScore ?? 100}/100
                       </span>
                     </div>
-                    <div className="text-[11px] text-slate-400">
+                    <div className="text-[11px] text-slate-500">
                       Captured: {new Date(snap.capturedAt).toLocaleString()}
                     </div>
                   </div>
